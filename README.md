@@ -71,10 +71,15 @@ tracking looks wrong.
 
 | Pairing | Display | Body | Character |
 |---|---|---|---|
-| Grotesk (default) | Space Grotesk | Archivo | Technical |
-| Fraunces | Fraunces | Karla | Warm, crafted |
-| Instrument | Instrument Serif | Inter | Editorial, formal |
-| Bricolage | Bricolage Grotesque | Archivo | Modern sans with character |
+| Grotesk (default) | Space Grotesk | Archivo | Technical, geometric |
+| Bricolage | Bricolage Grotesque | Archivo | Soft, quirky, rounded |
+| Familjen | Familjen Grotesk | Archivo | Flatter terminals, squarer |
+| Schibsted | Schibsted Grotesk | Archivo | Neutral modern grotesk |
+| Cabinet | Cabinet Grotesk | Archivo | Boxiest, most display |
+| Fraunces | Fraunces | Karla | Warm crafted serif |
+
+Cabinet Grotesk loads from **Fontshare**, not Google Fonts — a second `<link>`
+in `Base.astro`. If Cabinet wins, keep that link; otherwise delete it.
 
 The font `<link>` in `Base.astro` currently loads **all seven families** so the
 picker can switch instantly. Trim it to the chosen pair — it is the single

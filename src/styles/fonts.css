@@ -23,16 +23,6 @@ html[data-font='fraunces'] {
   --body-leading:     1.7;
 }
 
-/* High-contrast editorial. Quiet, expensive, a little formal. */
-html[data-font='instrument'] {
-  --display-family:   'Instrument Serif', ui-serif, Georgia, serif;
-  --body-family:      'Inter', ui-sans-serif, system-ui, sans-serif;
-  --display-weight:   400;
-  --display-tracking: -0.005em;
-  --display-leading:  1.05;
-  --body-leading:     1.68;
-}
-
 /* Contemporary sans with personality. Warmer than Space Grotesk, no serif. */
 html[data-font='bricolage'] {
   --display-family:   'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
@@ -40,5 +30,35 @@ html[data-font='bricolage'] {
   --display-weight:   600;
   --display-tracking: -0.026em;
   --display-leading:  1.06;
+  --body-leading:     1.65;
+}
+
+/* Squarer than Bricolage: flat terminals, less roundness, still contemporary. */
+html[data-font='familjen'] {
+  --display-family:   'Familjen Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --body-family:      'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --display-weight:   600;
+  --display-tracking: -0.02em;
+  --display-leading:  1.06;
+  --body-leading:     1.65;
+}
+
+/* The most neutral of the group. Modern grotesk, very little quirk. */
+html[data-font='schibsted'] {
+  --display-family:   'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --body-family:      'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --display-weight:   600;
+  --display-tracking: -0.026em;
+  --display-leading:  1.07;
+  --body-leading:     1.65;
+}
+
+/* Boxiest option. A display grotesk with squared-off curves. */
+html[data-font='cabinet'] {
+  --display-family:   'Cabinet Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --body-family:      'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --display-weight:   700;
+  --display-tracking: -0.024em;
+  --display-leading:  1.04;
   --body-leading:     1.65;
 }
