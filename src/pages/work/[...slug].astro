@@ -20,7 +20,7 @@ const facts = [
 
 <Base title={title} description={summary}>
   <article>
-    <header class="cursor-glow relative overflow-hidden border-b border-line">
+    <header class="cursor-glow relative overflow-hidden border-b border-line bg-surface-alt">
       <div class="wrap relative py-20">
         <a href="/work" class="link-wipe text-[0.9rem] text-ink-muted hover:text-ink">← All work</a>
 
@@ -31,7 +31,7 @@ const facts = [
           {
             facts.map((fact) => (
               <div>
-                <dt class="font-display text-[0.75rem] tracking-[0.14em] text-ink-muted uppercase">
+                <dt class="font-display text-[0.75rem] tracking-[0.14em] text-secondary uppercase">
                   {fact.label}
                 </dt>
                 <dd class="mt-2">{fact.value}</dd>
@@ -43,7 +43,7 @@ const facts = [
         <ul class="mt-10 flex flex-wrap gap-2" aria-label="Technologies used">
           {
             stack.map((tech) => (
-              <li class="rounded-full border border-line px-3 py-1 text-[0.8rem] text-ink-muted">
+              <li class="rounded-full bg-secondary-soft px-3 py-1 text-[0.8rem] text-secondary">
                 {tech}
               </li>
             ))
@@ -56,7 +56,7 @@ const facts = [
               {liveUrl && (
                 <a
                   href={liveUrl}
-                  class="rounded-full bg-accent px-6 py-3 font-display text-[0.95rem] text-bg transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:brightness-110"
+                  class="rounded-full bg-primary px-6 py-3 font-display text-[0.95rem] text-bg transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:brightness-110"
                 >
                   Visit the live site
                 </a>

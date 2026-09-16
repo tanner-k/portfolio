@@ -28,7 +28,7 @@ const formatDate = (date: Date) =>
                 <time datetime={post.data.date.toISOString()} class="text-[0.8rem] text-ink-muted tabular-nums">
                   {formatDate(post.data.date)}
                 </time>
-                <h2 class="mt-2 font-display text-2xl transition-colors duration-200 group-hover:text-accent">
+                <h2 class="mt-2 font-display text-2xl transition-colors duration-200 group-hover:text-primary">
                   {post.data.title}
                 </h2>
                 <p class="prose-measure mt-2 text-ink-muted">{post.data.description}</p>

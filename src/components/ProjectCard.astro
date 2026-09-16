@@ -12,7 +12,7 @@ const { href, title, tagline, year, status, stack } = Astro.props;
 
 <a
   href={href}
-  class="group relative block rounded-xl border border-line bg-surface p-7 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_12px_40px_-18px_rgb(var(--glow)/0.45)]"
+  class="group relative block rounded-xl border border-line bg-surface p-7 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_12px_40px_-18px_rgb(var(--glow)/0.45)]"
 >
   <div class="flex items-baseline justify-between gap-4">
     <h3 class="font-display text-2xl">{title}</h3>
@@ -24,14 +24,14 @@ const { href, title, tagline, year, status, stack } = Astro.props;
   <ul class="mt-6 flex flex-wrap gap-2" aria-label="Technologies used">
     {
       stack.slice(0, 5).map((tech) => (
-        <li class="rounded-full border border-line px-3 py-1 text-[0.75rem] text-ink-muted">{tech}</li>
+        <li class="rounded-full bg-secondary-soft px-3 py-1 text-[0.75rem] text-secondary">{tech}</li>
       ))
     }
   </ul>
 
   <div class="mt-6 flex items-center justify-between border-t border-line pt-5 text-[0.85rem]">
     <span class="text-ink-muted">{status}</span>
-    <span class="inline-flex items-center gap-1.5 font-500 text-accent">
+    <span class="inline-flex items-center gap-1.5 font-500 text-primary">
       Read the case study
       <svg
         class="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1"

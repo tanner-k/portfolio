@@ -1,26 +1,41 @@
 @import "tailwindcss";
 @import "./themes.css";
 
-/* ---- Semantic tokens. Light first, dark overrides below. ---- */
+/* ---- Color system. Every theme fills this same contract.
+
+   bg / surface / surface-alt  three background depths
+   ink / ink-muted / line      text and structure
+   primary / primary-soft      lead color + its tint for panels and tags
+   secondary / secondary-soft  supporting color + its tint
+   glow                        primary as an RGB triplet for the cursor effect
+   ---- */
 :root {
-  --bg:        #fbfaf8;
-  --surface:   #ffffff;
-  --ink:       #16161a;
-  --ink-muted: #5d5d66;
-  --line:      #e4e1dc;
-  --accent:    #1d4ed8;
-  --glow:      29 78 216;
+  --bg:             #fbfaf8;
+  --surface:        #ffffff;
+  --surface-alt:    #f2f1ee;
+  --ink:            #16161a;
+  --ink-muted:      #5d5d66;
+  --line:           #e4e1dc;
+  --primary:        #1d4ed8;
+  --primary-soft:   #e3e9fb;
+  --secondary:      #45454f;
+  --secondary-soft: #eceae6;
+  --glow:           29 78 216;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg:        #0e0e11;
-    --surface:   #16161a;
-    --ink:       #f2f0ed;
-    --ink-muted: #9b9ba6;
-    --line:      #2a2a31;
-    --accent:    #8fa9ff;
-    --glow:      143 169 255;
+    --bg:             #0e0e11;
+    --surface:        #16161a;
+    --surface-alt:    #1b1b20;
+    --ink:            #f2f0ed;
+    --ink-muted:      #9b9ba6;
+    --line:           #2a2a31;
+    --primary:        #8fa9ff;
+    --primary-soft:   #1e2333;
+    --secondary:      #bdbdc9;
+    --secondary-soft: #22222a;
+    --glow:           143 169 255;
   }
 }
 
@@ -28,12 +43,16 @@
   --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
   --font-sans:    'Archivo', ui-sans-serif, system-ui, sans-serif;
 
-  --color-bg:        var(--bg);
-  --color-surface:   var(--surface);
-  --color-ink:       var(--ink);
-  --color-ink-muted: var(--ink-muted);
-  --color-line:      var(--line);
-  --color-accent:    var(--accent);
+  --color-bg:             var(--bg);
+  --color-surface:        var(--surface);
+  --color-surface-alt:    var(--surface-alt);
+  --color-ink:            var(--ink);
+  --color-ink-muted:      var(--ink-muted);
+  --color-line:           var(--line);
+  --color-primary:        var(--primary);
+  --color-primary-soft:   var(--primary-soft);
+  --color-secondary:      var(--secondary);
+  --color-secondary-soft: var(--secondary-soft);
 }
 
 @layer base {
@@ -52,9 +71,9 @@
     line-height: 1.1;
     text-wrap: balance;
   }
-  ::selection { background: var(--accent); color: var(--bg); }
+  ::selection { background: var(--primary); color: var(--bg); }
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--primary);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -66,7 +85,7 @@
 
   /* Link underline that wipes in from the left. */
   .link-wipe {
-    background-image: linear-gradient(var(--accent), var(--accent));
+    background-image: linear-gradient(var(--primary), var(--primary));
     background-size: 0% 1px;
     background-position: 0 100%;
     background-repeat: no-repeat;

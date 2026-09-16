@@ -1,0 +1,104 @@
+---
+// Temporary. Delete with themes.css and ThemeSwitcher.astro once a palette wins.
+import Base from '../layouts/Base.astro';
+
+const roles = [
+  { token: 'bg', label: 'Background', use: 'The page itself' },
+  { token: 'surface', label: 'Surface', use: 'Cards raised off the page' },
+  { token: 'surface-alt', label: 'Surface alt', use: 'Tinted section bands' },
+  { token: 'primary', label: 'Primary', use: 'CTAs, links, the lead color' },
+  { token: 'primary-soft', label: 'Primary soft', use: 'Tinted panels behind primary' },
+  { token: 'secondary', label: 'Secondary', use: 'Tags, labels, the marquee' },
+  { token: 'secondary-soft', label: 'Secondary soft', use: 'Tag backgrounds' },
+  { token: 'ink', label: 'Ink', use: 'Body and heading text' },
+  { token: 'ink-muted', label: 'Ink muted', use: 'Secondary text' },
+  { token: 'line', label: 'Line', use: 'Borders and dividers' },
+];
+---
+
+<Base title="Palette" description="Colour tokens for the active theme.">
+  <section class="wrap py-20">
+    <h1 class="text-[clamp(2.25rem,5vw,3.5rem)]">Palette</h1>
+    <p class="prose-measure mt-5 text-lg text-ink-muted">
+      Every colour on the site, for whichever palette is selected in the switcher. Hex values are
+      read live from the page, so this always matches what you see.
+    </p>
+
+    <ul class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        roles.map((role) => (
+          <li class="overflow-hidden rounded-xl border border-line">
+            <div
+              class="h-24 border-b border-line"
+              style={`background: var(--${role.token})`}
+              data-swatch={role.token}
+            />
+            <div class="bg-surface p-4">
+              <div class="flex items-baseline justify-between gap-3">
+                <span class="font-display">{role.label}</span>
+                <code class="text-[0.75rem] text-ink-muted tabular-nums" data-hex={role.token}>
+                  —
+                </code>
+              </div>
+              <p class="mt-1 text-[0.8rem] text-ink-muted">{role.use}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2 class="mt-20 font-display text-[clamp(1.5rem,3vw,2rem)]">In combination</h2>
+    <p class="prose-measure mt-3 text-ink-muted">
+      The colours doing their actual jobs, so you can judge them together rather than as squares.
+    </p>
+
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
+      <div class="rounded-xl bg-surface-alt p-8">
+        <p class="font-display text-[0.75rem] tracking-[0.14em] text-primary uppercase">Eyebrow</p>
+        <h3 class="mt-3 font-display text-2xl">A tinted section band</h3>
+        <p class="mt-2 text-ink-muted">
+          Body copy sits at muted weight. <strong class="text-ink">Emphasis returns to ink.</strong>
+        </p>
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <span class="rounded-full bg-primary px-5 py-2.5 font-display text-[0.9rem] text-bg">
+            Primary action
+          </span>
+          <a href="/palette" class="link-wipe text-primary">A link</a>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-line bg-surface p-8">
+        <h3 class="font-display text-2xl">A card on surface</h3>
+        <p class="mt-2 text-ink-muted">Tags use the secondary colour and its tint.</p>
+        <ul class="mt-5 flex flex-wrap gap-2">
+          {
+            ['Next.js', 'Supabase', 'TypeScript', 'Vercel'].map((tech) => (
+              <li class="rounded-full bg-secondary-soft px-3 py-1 text-[0.75rem] text-secondary">
+                {tech}
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-6 border-t border-line pt-5">
+          <span class="text-[0.85rem] text-secondary">Secondary text, for labels and metadata</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Read the resolved values so the hex codes track the active theme.
+    function paint() {
+      const styles = getComputedStyle(document.documentElement);
+      document.querySelectorAll<HTMLElement>('[data-hex]').forEach((node) => {
+        node.textContent = styles.getPropertyValue(`--${node.dataset.hex}`).trim() || '—';
+      });
+    }
+    paint();
+    new MutationObserver(paint).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', paint);
+  </script>
+</Base>

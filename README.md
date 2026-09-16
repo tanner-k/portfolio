@@ -40,22 +40,35 @@ Tailwind utilities (`bg-bg`, `text-ink`, `border-line`, `text-accent`) map to th
 
 All three are off under `prefers-reduced-motion: reduce`.
 
+## Colour system
+
+Ten tokens, defined once in `src/styles/global.css`:
+
+| Token | Job |
+|---|---|
+| `bg` / `surface` / `surface-alt` | Three background depths: page, cards, tinted bands |
+| `ink` / `ink-muted` / `line` | Text and structure |
+| `primary` / `primary-soft` | Lead colour and its tint — CTAs, links, panels |
+| `secondary` / `secondary-soft` | Supporting colour and its tint — tags, labels, marquee |
+
+Use the Tailwind utilities (`bg-surface-alt`, `text-primary`,
+`bg-secondary-soft`) rather than raw hex anywhere in a component.
+
 ## Choosing a palette (temporary)
 
-`src/styles/themes.css` holds three alternates to the default, and
-`src/components/ThemeSwitcher.astro` renders the picker in the bottom-right
-corner. The choice persists in localStorage.
+`src/styles/themes.css` holds two alternates, `/palette` shows every token as a
+swatch with live hex values, and `ThemeSwitcher.astro` renders the picker.
+
+| Palette | Ground | Primary | Secondary |
+|---|---|---|---|
+| Ink (default) | Off-white | Blue | Graphite |
+| Grove | Ivory | Deep forest green | Walnut brown |
+| Harvest | Cream | Walnut brown | Olive |
 
 Once you've picked: copy the winning values into `:root` and the dark-mode
-block in `global.css`, then delete `themes.css`, `ThemeSwitcher.astro`, the
-import in `global.css`, and the two references in `Base.astro`.
-
-| Palette | Light | Dark accent |
-|---|---|---|
-| Ink (default) | Off-white, graphite, blue | Light blue |
-| Terra | Ivory, forest green | Sage |
-| Clay | Sand, terracotta | Warm apricot |
-| Moss | Oat, deep olive | Light olive |
+block in `global.css`, then delete `themes.css`, `ThemeSwitcher.astro`,
+`src/pages/palette.astro`, the import in `global.css`, and the two references
+in `Base.astro`.
 
 ## Gotchas
 

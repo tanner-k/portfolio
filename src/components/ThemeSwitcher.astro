@@ -2,10 +2,9 @@
 // Temporary palette chooser. Delete this component, themes.css, and the two
 // references in Base.astro once a palette is chosen.
 const themes = [
-  { id: 'ink', label: 'Ink', note: 'blue / graphite' },
-  { id: 'terra', label: 'Terra', note: 'ivory / forest' },
-  { id: 'clay', label: 'Clay', note: 'sand / terracotta' },
-  { id: 'moss', label: 'Moss', note: 'oat / olive' },
+  { id: 'ink', label: 'Ink', note: 'graphite / blue' },
+  { id: 'grove', label: 'Grove', note: 'ivory / forest green / walnut' },
+  { id: 'harvest', label: 'Harvest', note: 'cream / walnut / olive' },
 ];
 ---
 
@@ -31,6 +30,9 @@ const themes = [
       ))
     }
   </div>
+  <a href="/palette" class="mt-1 block px-2 py-1 text-[0.7rem] text-ink-muted underline underline-offset-2 hover:text-ink">
+    See full palette
+  </a>
 </div>
 
 <script>
