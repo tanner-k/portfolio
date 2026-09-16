@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 
 interface Props {
   title: string;
@@ -27,25 +26,23 @@ const SITE_NAME = 'Tanner Kunz';
     <link rel="canonical" href={Astro.url.href} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://api.fontshare.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600&family=Familjen+Grotesk:wght@500;600;700&family=Schibsted+Grotesk:wght@500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap"
     />
     <link
       rel="stylesheet"
       href="https://api.fontshare.com/v2/css?f%5B%5D=cabinet-grotesk@500,700,800&display=swap"
     />
     <script is:inline>
-      // Apply saved choices before first paint so nothing flashes.
+      // Apply the saved colour mode before first paint so nothing flashes.
       try {
-        const root = document.documentElement;
-        const palette = localStorage.getItem('palette');
-        if (palette && palette !== 'ink') root.setAttribute('data-theme', palette);
-        const font = localStorage.getItem('font');
-        if (font && font !== 'grotesk') root.setAttribute('data-font', font);
         const mode = localStorage.getItem('mode');
-        if (mode === 'light' || mode === 'dark') root.setAttribute('data-mode', mode);
+        if (mode === 'light' || mode === 'dark') {
+          document.documentElement.setAttribute('data-mode', mode);
+        }
       } catch {}
     </script>
   </head>
@@ -63,7 +60,6 @@ const SITE_NAME = 'Tanner Kunz';
       <slot />
     </main>
     <Footer />
-    <ThemeSwitcher />
 
     <script>
       // Effect 2 driver: track the pointer as percentages on any glow surface.

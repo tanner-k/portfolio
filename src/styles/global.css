@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@import "./themes.css";
-@import "./fonts.css";
 
 /* ---- Color system.
 
@@ -18,17 +16,28 @@
 :root {
   color-scheme: light dark;
 
-  --bg:             light-dark(#fbfaf8, #0e0e11);
-  --surface:        light-dark(#ffffff, #16161a);
-  --surface-alt:    light-dark(#f2f1ee, #1b1b20);
-  --ink:            light-dark(#16161a, #f2f0ed);
-  --ink-muted:      light-dark(#5d5d66, #9b9ba6);
-  --line:           light-dark(#e4e1dc, #2a2a31);
-  --primary:        light-dark(#1d4ed8, #8fa9ff);
-  --primary-soft:   light-dark(#e3e9fb, #1e2333);
-  --secondary:      light-dark(#45454f, #bdbdc9);
-  --secondary-soft: light-dark(#eceae6, #22222a);
-  --glow:           light-dark(29 78 216, 143 169 255);
+  /* Harvest: cream ground, walnut lead, olive support. */
+  --bg:             light-dark(#fbf7f0, #15110d);
+  --surface:        light-dark(#fffdf9, #1e1813);
+  --surface-alt:    light-dark(#f3eadc, #251d16);
+  --ink:            light-dark(#2a2119, #f2e9dd);
+  --ink-muted:      light-dark(#6a5a4a, #a59383);
+  --line:           light-dark(#e5d9c6, #33281f);
+  --primary:        light-dark(#7a4a2b, #e09c6a);
+  --primary-soft:   light-dark(#efe0d0, #32241a);
+  --secondary:      light-dark(#5b6733, #b0bf74);
+  --secondary-soft: light-dark(#e7ead6, #262b1a);
+  --glow:           light-dark(122 74 43, 224 156 106);
+
+  /* Cabinet Grotesk for display, Archivo for body. The weight, tracking and
+     leading below are tuned to Cabinet specifically — changing the face
+     without revisiting them will look wrong. */
+  --display-family:   'Cabinet Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --body-family:      'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --display-weight:   700;
+  --display-tracking: -0.024em;
+  --display-leading:  1.04;
+  --body-leading:     1.65;
 }
 
 /* Visitor's explicit choice. Absent means follow the operating system. */

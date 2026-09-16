@@ -40,67 +40,38 @@ Tailwind utilities (`bg-bg`, `text-ink`, `border-line`, `text-accent`) map to th
 
 All three are off under `prefers-reduced-motion: reduce`.
 
-## Colour system
+## Design system
 
-Ten tokens, defined once in `src/styles/global.css`. Every one is
-`light-dark(light, dark)`, so there is one declaration per colour instead of a
-rule plus a `prefers-color-scheme` duplicate.
+Palette **Harvest**, type **Cabinet Grotesk + Archivo**. Both live in `:root`
+in `src/styles/global.css` — change them there, never in a component.
+
+Colours are `light-dark(light, dark)`, so one declaration covers both modes.
 
 | Token | Job |
 |---|---|
 | `bg` / `surface` / `surface-alt` | Three background depths: page, cards, tinted bands |
 | `ink` / `ink-muted` / `line` | Text and structure |
-| `primary` / `primary-soft` | Lead colour and its tint — CTAs, links, panels |
-| `secondary` / `secondary-soft` | Supporting colour and its tint — tags, labels, marquee |
+| `primary` / `primary-soft` | Walnut + its tint — CTAs, links, panels |
+| `secondary` / `secondary-soft` | Olive + its tint — tags, labels, marquee |
 
 Use the Tailwind utilities (`bg-surface-alt`, `text-primary`,
-`bg-secondary-soft`) rather than raw hex in components.
+`bg-secondary-soft`), not raw hex.
+
+The display metrics (`--display-weight`, `--display-tracking`,
+`--display-leading`) are tuned to Cabinet Grotesk. Swapping the face without
+revisiting them will look wrong.
+
+## Fonts
+
+- **Archivo** (body) from Google Fonts
+- **Cabinet Grotesk** (display) from **Fontshare** — a second `<link>` in
+  `Base.astro`, free for commercial use under the ITF Free Font License
 
 ## Light / dark
 
-`ModeToggle.astro` in the nav cycles system → light → dark and stores the
-choice. It works by setting `color-scheme` on `<html>`; `light-dark()` reads
-from that, so no theme needs a second set of rules. **This is a real feature —
-keep it.**
-
-## Type pairings (temporary)
-
-`src/styles/fonts.css` holds four pairings. Each sets families *plus* the
-weight, tracking and leading that pairing needs — a serif at a grotesk's
-tracking looks wrong.
-
-| Pairing | Display | Body | Character |
-|---|---|---|---|
-| Grotesk (default) | Space Grotesk | Archivo | Technical, geometric |
-| Bricolage | Bricolage Grotesque | Archivo | Soft, quirky, rounded |
-| Familjen | Familjen Grotesk | Archivo | Flatter terminals, squarer |
-| Schibsted | Schibsted Grotesk | Archivo | Neutral modern grotesk |
-| Cabinet | Cabinet Grotesk | Archivo | Boxiest, most display |
-| Fraunces | Fraunces | Karla | Warm crafted serif |
-
-Cabinet Grotesk loads from **Fontshare**, not Google Fonts — a second `<link>`
-in `Base.astro`. If Cabinet wins, keep that link; otherwise delete it.
-
-The font `<link>` in `Base.astro` currently loads **all seven families** so the
-picker can switch instantly. Trim it to the chosen pair — it is the single
-biggest thing slowing the page down right now.
-
-## Choosing a palette (temporary)
-
-`src/styles/themes.css` holds two alternates, `/palette` shows every token as a
-swatch with live hex values, and `ThemeSwitcher.astro` is the picker.
-
-| Palette | Ground | Primary | Secondary |
-|---|---|---|---|
-| Ink (default) | Off-white | Blue | Graphite |
-| Grove | Ivory | Deep forest green | Walnut brown |
-| Harvest | Cream | Walnut brown | Olive |
-
-Once palette and type are chosen: fold the winning values into `:root` in
-`global.css`, then delete `themes.css`, `fonts.css`, `ThemeSwitcher.astro`,
-`src/pages/palette.astro`, the two imports in `global.css`, the extra font
-families in the `<link>`, and the `ThemeSwitcher` references in `Base.astro`.
-Keep `ModeToggle.astro`.
+`ModeToggle.astro` in the nav cycles system → light → dark and persists the
+choice. It sets `color-scheme` on `<html>`; `light-dark()` reads from that, so
+there is no second set of rules to maintain.
 
 ## Gotchas
 
