@@ -1,0 +1,27 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-32 border-t border-line">
+  <div class="wrap flex flex-col gap-6 py-12 sm:flex-row sm:items-end sm:justify-between">
+    <div class="prose-measure">
+      <h2 class="font-display text-2xl">Have something you want built?</h2>
+      <p class="mt-2 text-ink-muted">
+        I take on a small number of projects at a time. Tell me what you are trying to ship.
+      </p>
+      <a
+        href="mailto:tanner.kunz22@gmail.com"
+        class="link-wipe mt-4 inline-block font-display text-lg text-accent"
+      >
+        tanner.kunz22@gmail.com
+      </a>
+    </div>
+
+    <ul class="flex gap-6 text-[0.9rem] text-ink-muted">
+      <li><a href="https://github.com/tanner-k" class="link-wipe hover:text-ink">GitHub</a></li>
+      <li><a href="https://storiesrestored.com" class="link-wipe hover:text-ink">Stories Restored</a></li>
+    </ul>
+  </div>
+
+  <div class="wrap pb-10 text-[0.8rem] text-ink-muted">© {year} Tanner Kunz</div>
+</footer>

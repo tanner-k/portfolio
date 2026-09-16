@@ -1,0 +1,83 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, tagline, summary, year, role, status, stack, liveUrl, repoUrl } = project.data;
+
+const facts = [
+  { label: 'Year', value: year },
+  { label: 'Role', value: role },
+  { label: 'Status', value: status },
+];
+---
+
+<Base title={title} description={summary}>
+  <article>
+    <header class="cursor-glow relative overflow-hidden border-b border-line">
+      <div class="wrap relative py-20">
+        <a href="/work" class="link-wipe text-[0.9rem] text-ink-muted hover:text-ink">← All work</a>
+
+        <h1 class="mt-8 max-w-3xl text-[clamp(2.25rem,5.5vw,4rem)]">{title}</h1>
+        <p class="prose-measure mt-5 text-lg text-ink-muted">{tagline}</p>
+
+        <dl class="mt-12 grid gap-8 sm:grid-cols-3">
+          {
+            facts.map((fact) => (
+              <div>
+                <dt class="font-display text-[0.75rem] tracking-[0.14em] text-ink-muted uppercase">
+                  {fact.label}
+                </dt>
+                <dd class="mt-2">{fact.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <ul class="mt-10 flex flex-wrap gap-2" aria-label="Technologies used">
+          {
+            stack.map((tech) => (
+              <li class="rounded-full border border-line px-3 py-1 text-[0.8rem] text-ink-muted">
+                {tech}
+              </li>
+            ))
+          }
+        </ul>
+
+        {
+          (liveUrl || repoUrl) && (
+            <div class="mt-10 flex flex-wrap gap-x-8 gap-y-3">
+              {liveUrl && (
+                <a
+                  href={liveUrl}
+                  class="rounded-full bg-ink px-6 py-3 font-display text-[0.95rem] text-bg transition-transform duration-200 ease-out hover:-translate-y-0.5"
+                >
+                  Visit the live site
+                </a>
+              )}
+              {repoUrl && (
+                <a href={repoUrl} class="link-wipe self-center text-ink-muted hover:text-ink">
+                  Source code
+                </a>
+              )}
+            </div>
+          )
+        }
+      </div>
+    </header>
+
+    <div class="wrap py-20">
+      <div
+        class="prose-measure space-y-6 [&_h2]:mt-14 [&_h2]:font-display [&_h2]:text-[1.75rem] [&_h3]:mt-10 [&_h3]:font-display [&_h3]:text-xl [&_li]:text-ink-muted [&_p]:text-ink-muted [&_strong]:text-ink [&_ul]:list-disc [&_ul]:space-y-3 [&_ul]:pl-5"
+      >
+        <Content />
+      </div>
+    </div>
+  </article>
+</Base>

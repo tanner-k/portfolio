@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/* ---- Semantic tokens. Light first, dark overrides below. ---- */
+:root {
+  --bg:        #fbfaf8;
+  --surface:   #ffffff;
+  --ink:       #16161a;
+  --ink-muted: #5d5d66;
+  --line:      #e4e1dc;
+  --accent:    #1d4ed8;
+  --glow:      29 78 216;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:        #0e0e11;
+    --surface:   #16161a;
+    --ink:       #f2f0ed;
+    --ink-muted: #9b9ba6;
+    --line:      #2a2a31;
+    --accent:    #8fa9ff;
+    --glow:      143 169 255;
+  }
+}
+
+@theme inline {
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-sans:    'Archivo', ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg:        var(--bg);
+  --color-surface:   var(--surface);
+  --color-ink:       var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line:      var(--line);
+  --color-accent:    var(--accent);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.022em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  ::selection { background: var(--accent); color: var(--bg); }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .wrap { width: 100%; max-width: 68rem; margin-inline: auto; padding-inline: 1.5rem; }
+  .prose-measure { max-width: 34rem; }
+
+  /* Link underline that wipes in from the left. */
+  .link-wipe {
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 220ms cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  .link-wipe:hover, .link-wipe:focus-visible { background-size: 100% 1px; }
+}
+
+/* ---- Effect 1: scroll reveal.
+   Pure CSS, runs on the compositor. Firefox lacks animation-timeline, so the
+   whole thing is nested inside @supports: unsupported browsers simply render
+   the content with no hidden start state. No JS, no fallback needed.
+   ponytail: swap in IntersectionObserver (~12 lines) only if Firefox parity
+   ever actually matters. ---- */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-in both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+}
+
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---- Effect 2: cursor-reactive hero glow.
+   Two custom props set by a pointermove listener; the paint is a single
+   radial-gradient so there is no layout work per frame. ---- */
+.cursor-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    30rem 30rem at var(--mx, 50%) var(--my, 30%),
+    rgb(var(--glow) / 0.13),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 600ms ease-out;
+}
+.cursor-glow[data-glow="on"]::before { opacity: 1; }
+
+/* ---- Effect 3: project marquee. ---- */
+.marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee__track { display: flex; width: max-content; animation: marquee 42s linear infinite; }
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track { animation-play-state: paused; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Reduced motion: kill decorative movement, keep transitionend firing. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee__track { animation: none; transform: none; }
+  .cursor-glow::before { display: none; }
+}

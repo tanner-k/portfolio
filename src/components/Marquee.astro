@@ -1,0 +1,40 @@
+---
+interface Item {
+  title: string;
+  href: string;
+  tagline: string;
+}
+interface Props {
+  items: Item[];
+}
+const { items } = Astro.props;
+
+// The track translates -50%, so it needs exactly two copies of the same run to
+// loop seamlessly. Pad short lists first so a single project still fills the
+// viewport instead of leaving a visible gap.
+// ponytail: the padding is only load-bearing while the project count is tiny.
+const MIN_RUN = 6;
+const run: Item[] = [];
+while (items.length > 0 && run.length < MIN_RUN) run.push(...items);
+const track = [...run, ...run];
+---
+
+{
+  items.length > 0 && (
+    <div class="marquee border-y border-line py-5" aria-hidden="true">
+      <div class="marquee__track gap-10">
+        {track.map((item) => (
+          <a
+            href={item.href}
+            tabindex="-1"
+            class="flex shrink-0 items-center gap-3 text-ink-muted transition-colors duration-200 hover:text-ink"
+          >
+            <span class="font-display text-lg whitespace-nowrap">{item.title}</span>
+            <span class="text-[0.85rem] whitespace-nowrap opacity-70">{item.tagline}</span>
+            <span class="text-accent/50" aria-hidden="true">◆</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  )
+}

@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const SITE_NAME = 'Tanner Kunz';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — {SITE_NAME}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={`${title} — ${SITE_NAME}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={Astro.url.href} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+  </head>
+
+  <body class="min-h-dvh flex flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-bg"
+    >
+      Skip to content
+    </a>
+
+    <Nav />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Effect 2 driver: track the pointer as percentages on any glow surface.
+      // Bails out entirely when the visitor asked for reduced motion.
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function wireGlow(el: HTMLElement) {
+        let frame = 0;
+        el.addEventListener('pointermove', (event) => {
+          if (frame) return; // throttle to one update per frame
+          frame = requestAnimationFrame(() => {
+            frame = 0;
+            const box = el.getBoundingClientRect();
+            el.style.setProperty('--mx', `${((event.clientX - box.left) / box.width) * 100}%`);
+            el.style.setProperty('--my', `${((event.clientY - box.top) / box.height) * 100}%`);
+          });
+        });
+        el.addEventListener('pointerenter', () => el.setAttribute('data-glow', 'on'));
+        el.addEventListener('pointerleave', () => el.removeAttribute('data-glow'));
+      }
+
+      if (!reduced.matches) {
+        document.querySelectorAll<HTMLElement>('.cursor-glow').forEach(wireGlow);
+      }
+    </script>
+  </body>
+</html>

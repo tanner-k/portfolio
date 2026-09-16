@@ -1,0 +1,95 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Marquee from '../components/Marquee.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const marqueeItems = projects.map((p) => ({
+  title: p.data.title,
+  href: `/work/${p.id}`,
+  tagline: p.data.status,
+}));
+---
+
+<Base
+  title="Engineer and builder"
+  description="I design and ship AI-powered products end to end — and take on a small number of client projects."
+>
+  <section class="cursor-glow relative overflow-hidden">
+    <div class="wrap relative py-28 sm:py-36">
+      <p class="font-display text-[0.85rem] tracking-[0.18em] text-ink-muted uppercase">
+        Tanner Kunz
+      </p>
+
+      <h1 class="mt-6 max-w-4xl text-[clamp(2.5rem,6.5vw,4.5rem)]">
+        I build software that ships, not software that demos.
+      </h1>
+
+      <p class="prose-measure mt-7 text-lg text-ink-muted">
+        {/* TODO: two sentences in your own voice. Who you help, and what changes for them. */}
+        I design and build AI-powered products end to end — research, engineering, design,
+        deployment. Right now I&rsquo;m building my own, and taking on a small number of client
+        projects alongside them.
+      </p>
+
+      <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <a
+          href="/work"
+          class="rounded-full bg-ink px-6 py-3 font-display text-[0.95rem] text-bg transition-transform duration-200 ease-out hover:-translate-y-0.5"
+        >
+          See the work
+        </a>
+        <a href="mailto:tanner.kunz22@gmail.com" class="link-wipe text-[0.95rem] text-ink-muted hover:text-ink">
+          Start a conversation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Marquee items={marqueeItems} />
+
+  <section class="wrap py-24">
+    <div class="reveal">
+      <h2 class="font-display text-[clamp(1.75rem,3.5vw,2.5rem)]">Selected work</h2>
+      <p class="prose-measure mt-3 text-ink-muted">
+        Things I&rsquo;ve built, why they exist, and what I learned shipping them.
+      </p>
+    </div>
+
+    <div class:list={["mt-12 grid gap-6", projects.length > 1 && "sm:grid-cols-2"]}>
+      {
+        projects.map((project) => (
+          <div class="reveal">
+            <ProjectCard
+              href={`/work/${project.id}`}
+              title={project.data.title}
+              tagline={project.data.tagline}
+              year={project.data.year}
+              status={project.data.status}
+              stack={project.data.stack}
+            />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap reveal border-t border-line py-24">
+    <div class="grid gap-10 md:grid-cols-[1fr_1.4fr]">
+      <h2 class="font-display text-[clamp(1.75rem,3.5vw,2.5rem)]">How I work</h2>
+      <div class="space-y-4 text-ink-muted">
+        {/* TODO: rewrite. This is the section consulting clients actually read. */}
+        <p>
+          Most projects that sound like they need a large system need a smaller one shipped sooner.
+          I start by finding the version that can be in front of real users this month.
+        </p>
+        <p>
+          I work end to end — the research, the build, the design, and the part where it actually
+          goes live and stays up. That means fewer handoffs and fewer things lost between them.
+        </p>
+        <a href="/about" class="link-wipe inline-block text-ink">More about how I work</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Base title="Writing" description="Notes on what I'm building, and what turned out to be harder than expected.">
+  <section class="wrap py-20">
+    <h1 class="text-[clamp(2.25rem,5vw,3.5rem)]">Writing</h1>
+    <p class="prose-measure mt-5 text-lg text-ink-muted">
+      Notes on what I&rsquo;m building and what turned out to be harder than expected.
+    </p>
+
+    {
+      posts.length === 0 ? (
+        <p class="mt-14 text-ink-muted">Nothing published yet.</p>
+      ) : (
+        <ul class="mt-14 border-t border-line">
+          {posts.map((post) => (
+            <li class="reveal border-b border-line">
+              <a href={`/writing/${post.id}`} class="group block py-8">
+                <time datetime={post.data.date.toISOString()} class="text-[0.8rem] text-ink-muted tabular-nums">
+                  {formatDate(post.data.date)}
+                </time>
+                <h2 class="mt-2 font-display text-2xl transition-colors duration-200 group-hover:text-accent">
+                  {post.data.title}
+                </h2>
+                <p class="prose-measure mt-2 text-ink-muted">{post.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</Base>

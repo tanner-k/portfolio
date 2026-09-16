@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="About"
+  description="Background, how I work, and what I'm building toward."
+>
+  <section class="wrap py-20">
+    <h1 class="text-[clamp(2.25rem,5vw,3.5rem)]">About</h1>
+
+    {/* TODO: everything below is placeholder shaped correctly. Rewrite in your voice. */}
+    <div class="prose-measure mt-10 space-y-6 text-lg text-ink-muted">
+      <p>
+        I&rsquo;m an engineer who builds and ships products end to end — the research, the
+        architecture, the interface, and the part where it goes live and has to stay up.
+      </p>
+      <p>
+        Lately most of my work has been AI-powered products: systems where a model does something
+        genuinely useful inside a product that a non-technical person can actually operate. That
+        second half is where most of these projects fail, and it&rsquo;s the half I care about.
+      </p>
+    </div>
+
+    <div class="reveal mt-20 grid gap-12 border-t border-line pt-14 md:grid-cols-[1fr_1.4fr]">
+      <h2 class="font-display text-[clamp(1.5rem,3vw,2rem)]">How I work</h2>
+      <div class="space-y-5 text-ink-muted">
+        <p>
+          <strong class="text-ink">Ship the smallest real version first.</strong> Most projects that
+          sound like they need a large system need a smaller one in front of users sooner. Real
+          usage answers questions that planning cannot.
+        </p>
+        <p>
+          <strong class="text-ink">Own the whole thing.</strong> Fewer handoffs, fewer things lost
+          between them. I&rsquo;d rather be responsible for the outcome than for one layer of it.
+        </p>
+        <p>
+          <strong class="text-ink">Build for the person who isn&rsquo;t technical.</strong> If the
+          person who needs the tool can&rsquo;t run it without me, it isn&rsquo;t finished.
+        </p>
+      </div>
+    </div>
+
+    <div class="reveal mt-20 grid gap-12 border-t border-line pt-14 md:grid-cols-[1fr_1.4fr]">
+      <h2 class="font-display text-[clamp(1.5rem,3vw,2rem)]">What I&rsquo;m building toward</h2>
+      <div class="space-y-5 text-ink-muted">
+        <p>
+          {/* TODO: this is the most personal section on the site. Worth writing yourself. */}
+          I&rsquo;m building my own products and taking on a small number of client projects
+          alongside them. The goal is a small portfolio of things I own outright, funded by work
+          I&rsquo;m glad to do.
+        </p>
+        <a href="mailto:tanner.kunz22@gmail.com" class="link-wipe inline-block text-ink">
+          Get in touch
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
