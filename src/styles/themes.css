@@ -1,0 +1,74 @@
+/* Alternate palettes for comparison. Each sets the same token contract as the
+   default in global.css, so nothing else in the site needs to know a theme
+   exists. Applied via data-theme on <html>.
+   ponytail: this file plus ThemeSwitcher.astro are a chooser, not a feature.
+   Pick a palette, fold it into :root, delete both. */
+
+/* ---------- TERRA — ivory, forest green, warm stone ---------- */
+html[data-theme='terra'] {
+  --bg:        #fbf8f1;
+  --surface:   #fffdf8;
+  --ink:       #1f2620;
+  --ink-muted: #5b6156;
+  --line:      #e2dbcb;
+  --accent:    #2f6b43;
+  --glow:      47 107 67;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme='terra'] {
+    --bg:        #12150f;
+    --surface:   #1b1f18;
+    --ink:       #efeadf;
+    --ink-muted: #9aa08f;
+    --line:      #2c3128;
+    --accent:    #86c093;
+    --glow:      134 192 147;
+  }
+}
+
+/* ---------- CLAY — sand, terracotta, warm brown ---------- */
+html[data-theme='clay'] {
+  --bg:        #faf5ee;
+  --surface:   #fffbf5;
+  --ink:       #2a211b;
+  --ink-muted: #6a5c51;
+  --line:      #e8ddce;
+  --accent:    #a3461b;
+  --glow:      163 70 27;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme='clay'] {
+    --bg:        #171310;
+    --surface:   #201b17;
+    --ink:       #f2eae0;
+    --ink-muted: #a39488;
+    --line:      #322a24;
+    --accent:    #e58d5c;
+    --glow:      229 141 92;
+  }
+}
+
+/* ---------- MOSS — deep olive and oat, lowest contrast of the three ---------- */
+html[data-theme='moss'] {
+  --bg:        #f4f3ea;
+  --surface:   #fbfaf4;
+  --ink:       #242820;
+  --ink-muted: #5a6053;
+  --line:      #dedcc9;
+  --accent:    #5a6b2f;
+  --glow:      90 107 47;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme='moss'] {
+    --bg:        #14160f;
+    --surface:   #1c1f17;
+    --ink:       #eeeee0;
+    --ink-muted: #9ba18d;
+    --line:      #2e3226;
+    --accent:    #b3c274;
+    --glow:      179 194 116;
+  }
+}

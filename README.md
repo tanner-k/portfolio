@@ -40,6 +40,23 @@ Tailwind utilities (`bg-bg`, `text-ink`, `border-line`, `text-accent`) map to th
 
 All three are off under `prefers-reduced-motion: reduce`.
 
+## Choosing a palette (temporary)
+
+`src/styles/themes.css` holds three alternates to the default, and
+`src/components/ThemeSwitcher.astro` renders the picker in the bottom-right
+corner. The choice persists in localStorage.
+
+Once you've picked: copy the winning values into `:root` and the dark-mode
+block in `global.css`, then delete `themes.css`, `ThemeSwitcher.astro`, the
+import in `global.css`, and the two references in `Base.astro`.
+
+| Palette | Light | Dark accent |
+|---|---|---|
+| Ink (default) | Off-white, graphite, blue | Light blue |
+| Terra | Ivory, forest green | Sage |
+| Clay | Sand, terracotta | Warm apricot |
+| Moss | Oat, deep olive | Light olive |
+
 ## Gotchas
 
 - `prose-measure` caps line length at 34rem. Body text should stay inside it.

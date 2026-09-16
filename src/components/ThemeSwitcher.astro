@@ -1,0 +1,62 @@
+---
+// Temporary palette chooser. Delete this component, themes.css, and the two
+// references in Base.astro once a palette is chosen.
+const themes = [
+  { id: 'ink', label: 'Ink', note: 'blue / graphite' },
+  { id: 'terra', label: 'Terra', note: 'ivory / forest' },
+  { id: 'clay', label: 'Clay', note: 'sand / terracotta' },
+  { id: 'moss', label: 'Moss', note: 'oat / olive' },
+];
+---
+
+<div
+  class="fixed right-4 bottom-4 z-50 rounded-xl border border-line bg-surface/95 p-2 shadow-lg backdrop-blur-md"
+  data-theme-switcher
+>
+  <p class="px-2 pt-1 pb-2 font-display text-[0.65rem] tracking-[0.14em] text-ink-muted uppercase">
+    Palette
+  </p>
+  <div class="flex gap-1">
+    {
+      themes.map((theme) => (
+        <button
+          type="button"
+          data-theme-option={theme.id}
+          title={`${theme.label} — ${theme.note}`}
+          class="rounded-lg px-3 py-2 font-display text-[0.8rem] text-ink-muted transition-colors duration-150 hover:bg-line/60 hover:text-ink aria-pressed:bg-ink aria-pressed:text-bg"
+          aria-pressed="false"
+        >
+          {theme.label}
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const KEY = 'palette';
+  const root = document.documentElement;
+
+  function apply(theme: string) {
+    if (theme === 'ink') root.removeAttribute('data-theme');
+    else root.setAttribute('data-theme', theme);
+
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-option]').forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.themeOption === theme));
+    });
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-option]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const theme = button.dataset.themeOption!;
+      try {
+        localStorage.setItem(KEY, theme);
+      } catch {
+        // Private mode or blocked storage — the choice just won't persist.
+      }
+      apply(theme);
+    });
+  });
+
+  apply(root.getAttribute('data-theme') ?? 'ink');
+</script>
