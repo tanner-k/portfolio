@@ -1,68 +1,32 @@
-/* Alternate palettes. Each fills the same ten-slot contract documented in
-   global.css, so no component needs to know a theme exists.
-   ponytail: this file plus ThemeSwitcher.astro and /palette are a chooser,
-   not a feature. Pick one, fold it into :root, delete all three. */
+/* Alternate palettes. Each fills the same contract as :root in global.css.
+   ponytail: a chooser, not a feature. Pick one, fold it into :root, delete. */
 
-/* ---------- GROVE — ivory ground, forest green lead, walnut support.
-   Cooler and more restrained of the two earth palettes. ---------- */
+/* ---------- GROVE — ivory ground, forest green lead, walnut support. ---------- */
 html[data-theme='grove'] {
-  --bg:             #faf8f2;
-  --surface:        #ffffff;
-  --surface-alt:    #eef1e8;
-  --ink:            #1e2a22;
-  --ink-muted:      #58655a;
-  --line:           #ddddd0;
-  --primary:        #2c5f45;
-  --primary-soft:   #dce8df;
-  --secondary:      #8a5a3b;
-  --secondary-soft: #f0e4d8;
-  --glow:           44 95 69;
+  --bg:             light-dark(#faf8f2, #101410);
+  --surface:        light-dark(#ffffff, #181d18);
+  --surface-alt:    light-dark(#eef1e8, #1e241f);
+  --ink:            light-dark(#1e2a22, #edf0e9);
+  --ink-muted:      light-dark(#58655a, #95a095);
+  --line:           light-dark(#ddddd0, #2a312b);
+  --primary:        light-dark(#2c5f45, #7fbf95);
+  --primary-soft:   light-dark(#dce8df, #23332a);
+  --secondary:      light-dark(#8a5a3b, #d9a277);
+  --secondary-soft: light-dark(#f0e4d8, #32261e);
+  --glow:           light-dark(44 95 69, 127 191 149);
 }
 
-@media (prefers-color-scheme: dark) {
-  html[data-theme='grove'] {
-    --bg:             #101410;
-    --surface:        #181d18;
-    --surface-alt:    #1e241f;
-    --ink:            #edf0e9;
-    --ink-muted:      #95a095;
-    --line:           #2a312b;
-    --primary:        #7fbf95;
-    --primary-soft:   #23332a;
-    --secondary:      #d9a277;
-    --secondary-soft: #32261e;
-    --glow:           127 191 149;
-  }
-}
-
-/* ---------- HARVEST — cream ground, walnut lead, olive support.
-   Warmer and richer. Reads least like a developer portfolio. ---------- */
+/* ---------- HARVEST — cream ground, walnut lead, olive support. ---------- */
 html[data-theme='harvest'] {
-  --bg:             #fbf7f0;
-  --surface:        #fffdf9;
-  --surface-alt:    #f3eadc;
-  --ink:            #2a2119;
-  --ink-muted:      #6a5a4a;
-  --line:           #e5d9c6;
-  --primary:        #7a4a2b;
-  --primary-soft:   #efe0d0;
-  --secondary:      #5b6733;
-  --secondary-soft: #e7ead6;
-  --glow:           122 74 43;
-}
-
-@media (prefers-color-scheme: dark) {
-  html[data-theme='harvest'] {
-    --bg:             #15110d;
-    --surface:        #1e1813;
-    --surface-alt:    #251d16;
-    --ink:            #f2e9dd;
-    --ink-muted:      #a59383;
-    --line:           #33281f;
-    --primary:        #e09c6a;
-    --primary-soft:   #32241a;
-    --secondary:      #b0bf74;
-    --secondary-soft: #262b1a;
-    --glow:           224 156 106;
-  }
+  --bg:             light-dark(#fbf7f0, #15110d);
+  --surface:        light-dark(#fffdf9, #1e1813);
+  --surface-alt:    light-dark(#f3eadc, #251d16);
+  --ink:            light-dark(#2a2119, #f2e9dd);
+  --ink-muted:      light-dark(#6a5a4a, #a59383);
+  --line:           light-dark(#e5d9c6, #33281f);
+  --primary:        light-dark(#7a4a2b, #e09c6a);
+  --primary-soft:   light-dark(#efe0d0, #32241a);
+  --secondary:      light-dark(#5b6733, #b0bf74);
+  --secondary-soft: light-dark(#e7ead6, #262b1a);
+  --glow:           light-dark(122 74 43, 224 156 106);
 }

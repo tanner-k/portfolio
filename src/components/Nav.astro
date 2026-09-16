@@ -1,4 +1,6 @@
 ---
+import ModeToggle from './ModeToggle.astro';
+
 const links = [
   { href: '/work', label: 'Work' },
   { href: '/writing', label: 'Writing' },
@@ -14,7 +16,8 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
       Tanner&nbsp;Kunz
     </a>
 
-    <ul class="flex items-center gap-7 text-[0.9rem]">
+    <div class="flex items-center gap-5">
+      <ul class="flex items-center gap-7 text-[0.9rem]">
       {
         links.map((link) => (
           <li>
@@ -31,6 +34,8 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
           </li>
         ))
       }
-    </ul>
+      </ul>
+      <ModeToggle />
+    </div>
   </nav>
 </header>

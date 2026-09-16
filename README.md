@@ -42,7 +42,9 @@ All three are off under `prefers-reduced-motion: reduce`.
 
 ## Colour system
 
-Ten tokens, defined once in `src/styles/global.css`:
+Ten tokens, defined once in `src/styles/global.css`. Every one is
+`light-dark(light, dark)`, so there is one declaration per colour instead of a
+rule plus a `prefers-color-scheme` duplicate.
 
 | Token | Job |
 |---|---|
@@ -52,12 +54,36 @@ Ten tokens, defined once in `src/styles/global.css`:
 | `secondary` / `secondary-soft` | Supporting colour and its tint — tags, labels, marquee |
 
 Use the Tailwind utilities (`bg-surface-alt`, `text-primary`,
-`bg-secondary-soft`) rather than raw hex anywhere in a component.
+`bg-secondary-soft`) rather than raw hex in components.
+
+## Light / dark
+
+`ModeToggle.astro` in the nav cycles system → light → dark and stores the
+choice. It works by setting `color-scheme` on `<html>`; `light-dark()` reads
+from that, so no theme needs a second set of rules. **This is a real feature —
+keep it.**
+
+## Type pairings (temporary)
+
+`src/styles/fonts.css` holds four pairings. Each sets families *plus* the
+weight, tracking and leading that pairing needs — a serif at a grotesk's
+tracking looks wrong.
+
+| Pairing | Display | Body | Character |
+|---|---|---|---|
+| Grotesk (default) | Space Grotesk | Archivo | Technical |
+| Fraunces | Fraunces | Karla | Warm, crafted |
+| Instrument | Instrument Serif | Inter | Editorial, formal |
+| Bricolage | Bricolage Grotesque | Archivo | Modern sans with character |
+
+The font `<link>` in `Base.astro` currently loads **all seven families** so the
+picker can switch instantly. Trim it to the chosen pair — it is the single
+biggest thing slowing the page down right now.
 
 ## Choosing a palette (temporary)
 
 `src/styles/themes.css` holds two alternates, `/palette` shows every token as a
-swatch with live hex values, and `ThemeSwitcher.astro` renders the picker.
+swatch with live hex values, and `ThemeSwitcher.astro` is the picker.
 
 | Palette | Ground | Primary | Secondary |
 |---|---|---|---|
@@ -65,10 +91,11 @@ swatch with live hex values, and `ThemeSwitcher.astro` renders the picker.
 | Grove | Ivory | Deep forest green | Walnut brown |
 | Harvest | Cream | Walnut brown | Olive |
 
-Once you've picked: copy the winning values into `:root` and the dark-mode
-block in `global.css`, then delete `themes.css`, `ThemeSwitcher.astro`,
-`src/pages/palette.astro`, the import in `global.css`, and the two references
-in `Base.astro`.
+Once palette and type are chosen: fold the winning values into `:root` in
+`global.css`, then delete `themes.css`, `fonts.css`, `ThemeSwitcher.astro`,
+`src/pages/palette.astro`, the two imports in `global.css`, the extra font
+families in the `<link>`, and the `ThemeSwitcher` references in `Base.astro`.
+Keep `ModeToggle.astro`.
 
 ## Gotchas
 

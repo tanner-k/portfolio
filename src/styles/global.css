@@ -1,47 +1,43 @@
 @import "tailwindcss";
 @import "./themes.css";
+@import "./fonts.css";
 
-/* ---- Color system. Every theme fills this same contract.
+/* ---- Color system.
+
+   Every token is light-dark(light, dark), resolved from the element's computed
+   color-scheme. That means one declaration per colour instead of a rule plus a
+   prefers-color-scheme duplicate, and an explicit override is just a different
+   color-scheme value — no extra CSS per theme.
 
    bg / surface / surface-alt  three background depths
    ink / ink-muted / line      text and structure
-   primary / primary-soft      lead color + its tint for panels and tags
-   secondary / secondary-soft  supporting color + its tint
+   primary / primary-soft      lead colour + its tint for panels and tags
+   secondary / secondary-soft  supporting colour + its tint
    glow                        primary as an RGB triplet for the cursor effect
    ---- */
 :root {
-  --bg:             #fbfaf8;
-  --surface:        #ffffff;
-  --surface-alt:    #f2f1ee;
-  --ink:            #16161a;
-  --ink-muted:      #5d5d66;
-  --line:           #e4e1dc;
-  --primary:        #1d4ed8;
-  --primary-soft:   #e3e9fb;
-  --secondary:      #45454f;
-  --secondary-soft: #eceae6;
-  --glow:           29 78 216;
+  color-scheme: light dark;
+
+  --bg:             light-dark(#fbfaf8, #0e0e11);
+  --surface:        light-dark(#ffffff, #16161a);
+  --surface-alt:    light-dark(#f2f1ee, #1b1b20);
+  --ink:            light-dark(#16161a, #f2f0ed);
+  --ink-muted:      light-dark(#5d5d66, #9b9ba6);
+  --line:           light-dark(#e4e1dc, #2a2a31);
+  --primary:        light-dark(#1d4ed8, #8fa9ff);
+  --primary-soft:   light-dark(#e3e9fb, #1e2333);
+  --secondary:      light-dark(#45454f, #bdbdc9);
+  --secondary-soft: light-dark(#eceae6, #22222a);
+  --glow:           light-dark(29 78 216, 143 169 255);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg:             #0e0e11;
-    --surface:        #16161a;
-    --surface-alt:    #1b1b20;
-    --ink:            #f2f0ed;
-    --ink-muted:      #9b9ba6;
-    --line:           #2a2a31;
-    --primary:        #8fa9ff;
-    --primary-soft:   #1e2333;
-    --secondary:      #bdbdc9;
-    --secondary-soft: #22222a;
-    --glow:           143 169 255;
-  }
-}
+/* Visitor's explicit choice. Absent means follow the operating system. */
+html[data-mode='light'] { color-scheme: light; }
+html[data-mode='dark']  { color-scheme: dark; }
 
 @theme inline {
-  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-sans:    'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--display-family);
+  --font-sans:    var(--body-family);
 
   --color-bg:             var(--bg);
   --color-surface:        var(--surface);
@@ -60,15 +56,16 @@
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: var(--font-sans);
+    font-family: var(--body-family);
     font-size: 1.0625rem;
-    line-height: 1.65;
+    line-height: var(--body-leading, 1.65);
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    letter-spacing: -0.022em;
-    line-height: 1.1;
+    font-family: var(--display-family);
+    font-weight: var(--display-weight, 600);
+    letter-spacing: var(--display-tracking, -0.022em);
+    line-height: var(--display-leading, 1.1);
     text-wrap: balance;
   }
   ::selection { background: var(--primary); color: var(--bg); }
@@ -115,9 +112,7 @@
   to   { opacity: 1; transform: none; }
 }
 
-/* ---- Effect 2: cursor-reactive hero glow.
-   Two custom props set by a pointermove listener; the paint is a single
-   radial-gradient so there is no layout work per frame. ---- */
+/* ---- Effect 2: cursor-reactive hero glow. ---- */
 .cursor-glow::before {
   content: "";
   position: absolute;

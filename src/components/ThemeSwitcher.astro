@@ -1,64 +1,95 @@
 ---
-// Temporary palette chooser. Delete this component, themes.css, and the two
-// references in Base.astro once a palette is chosen.
-const themes = [
+// Temporary chooser for palette and type pairing. Delete with themes.css,
+// fonts.css and src/pages/palette.astro once both decisions are made.
+const palettes = [
   { id: 'ink', label: 'Ink', note: 'graphite / blue' },
   { id: 'grove', label: 'Grove', note: 'ivory / forest green / walnut' },
   { id: 'harvest', label: 'Harvest', note: 'cream / walnut / olive' },
 ];
+
+const fonts = [
+  { id: 'grotesk', label: 'Grotesk', note: 'Space Grotesk + Archivo — technical' },
+  { id: 'fraunces', label: 'Fraunces', note: 'Fraunces + Karla — warm, crafted' },
+  { id: 'instrument', label: 'Instrument', note: 'Instrument Serif + Inter — editorial' },
+  { id: 'bricolage', label: 'Bricolage', note: 'Bricolage Grotesque + Archivo — modern sans' },
+];
+
+const groups = [
+  { key: 'palette', title: 'Palette', options: palettes },
+  { key: 'font', title: 'Type', options: fonts },
+];
 ---
 
 <div
-  class="fixed right-4 bottom-4 z-50 rounded-xl border border-line bg-surface/95 p-2 shadow-lg backdrop-blur-md"
-  data-theme-switcher
+  class="fixed right-4 bottom-4 z-50 w-[13.5rem] rounded-xl border border-line bg-surface/95 p-3 shadow-lg backdrop-blur-md"
 >
-  <p class="px-2 pt-1 pb-2 font-display text-[0.65rem] tracking-[0.14em] text-ink-muted uppercase">
-    Palette
-  </p>
-  <div class="flex gap-1">
-    {
-      themes.map((theme) => (
-        <button
-          type="button"
-          data-theme-option={theme.id}
-          title={`${theme.label} — ${theme.note}`}
-          class="rounded-lg px-3 py-2 font-display text-[0.8rem] text-ink-muted transition-colors duration-150 hover:bg-line/60 hover:text-ink aria-pressed:bg-ink aria-pressed:text-bg"
-          aria-pressed="false"
-        >
-          {theme.label}
-        </button>
-      ))
-    }
-  </div>
-  <a href="/palette" class="mt-1 block px-2 py-1 text-[0.7rem] text-ink-muted underline underline-offset-2 hover:text-ink">
+  {
+    groups.map((group) => (
+      <div class="mb-3 last:mb-0">
+        <p class="px-1 pb-1.5 font-display text-[0.65rem] tracking-[0.14em] text-ink-muted uppercase">
+          {group.title}
+        </p>
+        <div class="flex flex-wrap gap-1">
+          {group.options.map((option) => (
+            <button
+              type="button"
+              data-group={group.key}
+              data-option={option.id}
+              title={`${option.label} — ${option.note}`}
+              class="rounded-lg px-2.5 py-1.5 font-display text-[0.78rem] text-ink-muted transition-colors duration-150 hover:bg-surface-alt hover:text-ink aria-pressed:bg-ink aria-pressed:text-bg"
+              aria-pressed="false"
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+
+  <a
+    href="/palette"
+    class="mt-1 block px-1 text-[0.7rem] text-ink-muted underline underline-offset-2 hover:text-ink"
+  >
     See full palette
   </a>
 </div>
 
 <script>
-  const KEY = 'palette';
+  // group key -> [html attribute, value that means "default"]
+  const GROUPS: Record<string, { attr: string; fallback: string }> = {
+    palette: { attr: 'data-theme', fallback: 'ink' },
+    font: { attr: 'data-font', fallback: 'grotesk' },
+  };
+
   const root = document.documentElement;
 
-  function apply(theme: string) {
-    if (theme === 'ink') root.removeAttribute('data-theme');
-    else root.setAttribute('data-theme', theme);
+  function apply(group: string, option: string) {
+    const { attr, fallback } = GROUPS[group];
+    if (option === fallback) root.removeAttribute(attr);
+    else root.setAttribute(attr, option);
 
-    document.querySelectorAll<HTMLButtonElement>('[data-theme-option]').forEach((button) => {
-      button.setAttribute('aria-pressed', String(button.dataset.themeOption === theme));
-    });
+    document
+      .querySelectorAll<HTMLButtonElement>(`[data-group="${group}"]`)
+      .forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.option === option));
+      });
   }
 
-  document.querySelectorAll<HTMLButtonElement>('[data-theme-option]').forEach((button) => {
+  document.querySelectorAll<HTMLButtonElement>('[data-group]').forEach((button) => {
     button.addEventListener('click', () => {
-      const theme = button.dataset.themeOption!;
+      const group = button.dataset.group!;
+      const option = button.dataset.option!;
       try {
-        localStorage.setItem(KEY, theme);
+        localStorage.setItem(group, option);
       } catch {
-        // Private mode or blocked storage — the choice just won't persist.
+        // Blocked storage — applies now, won't persist.
       }
-      apply(theme);
+      apply(group, option);
     });
   });
 
-  apply(root.getAttribute('data-theme') ?? 'ink');
+  for (const [group, { attr, fallback }] of Object.entries(GROUPS)) {
+    apply(group, root.getAttribute(attr) ?? fallback);
+  }
 </script>

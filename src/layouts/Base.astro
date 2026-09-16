@@ -30,12 +30,18 @@ const SITE_NAME = 'Tanner Kunz';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&display=swap"
     />
     <script is:inline>
+      // Apply saved choices before first paint so nothing flashes.
       try {
-        const saved = localStorage.getItem('palette');
-        if (saved && saved !== 'ink') document.documentElement.setAttribute('data-theme', saved);
+        const root = document.documentElement;
+        const palette = localStorage.getItem('palette');
+        if (palette && palette !== 'ink') root.setAttribute('data-theme', palette);
+        const font = localStorage.getItem('font');
+        if (font && font !== 'grotesk') root.setAttribute('data-font', font);
+        const mode = localStorage.getItem('mode');
+        if (mode === 'light' || mode === 'dark') root.setAttribute('data-mode', mode);
       } catch {}
     </script>
   </head>
