@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Research"
+  description="Research on AI, work, and business formation."
+>
+  <section class="cursor-glow relative overflow-hidden">
+    <div class="wrap relative pt-20 pb-14">
+    <h1 class="text-[clamp(2.25rem,5vw,3.5rem)]">Research</h1>
+    <p class="prose-measure mt-5 text-lg text-ink-muted">
+      Questions I&rsquo;m exploring about how AI changes work, who gets to build,
+      and what helps people turn an idea into a business.
+    </p>
+
+    </div>
+  </section>
+
+  <section class="wrap pb-20">
+    <article class="reveal border-t border-line pt-10" aria-labelledby="layoffs-study">
+      <p class="font-display text-[0.8rem] tracking-[0.12em] text-primary uppercase">
+        Working paper &middot; October 2026
+      </p>
+      <h2 id="layoffs-study" class="mt-4 max-w-3xl font-display text-[clamp(1.5rem,3vw,2rem)]">
+        <a href="/writing/new-ai-businesses" class="link-wipe">
+          Layoffs, AI and New Businesses: Early Evidence from US States
+        </a>
+      </h2>
+      <div class="prose-measure mt-6 space-y-5 text-ink-muted">
+        <p class="reveal">
+          When a large company lays people off, skilled workers end up competing for a limited
+          number of open jobs. Starting a business adds jobs instead. This paper asks whether
+          layoffs turned into more new businesses once AI tools made it easier for people
+          without a technical background to build products.
+        </p>
+        <p class="reveal">
+          Using WARN layoff notices, Census business applications and SEC restructuring filings
+          across 34 states, I find that companies increasingly cite AI when cutting jobs (17% of
+          filings in 2026, up from 4% in 2025), and business applications rose. But the state data
+          do not connect the two: layoffs were not followed by detectably more applications after
+          January 2026, and the estimates are too imprecise to rule out a modest effect.
+        </p>
+      </div>
+      <ul class="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-[0.95rem]">
+        <li><a href="/writing/new-ai-businesses" class="link-wipe text-ink">Read the paper &rarr;</a></li>
+        <li><a href="/papers/new-ai-businesses/new-ai-businesses.pdf" class="link-wipe text-ink-muted hover:text-ink">PDF</a></li>
+        <li>
+          <a href="https://github.com/tanner-k/new-ai-businesses-research" class="link-wipe text-ink-muted hover:text-ink">
+            Code and data
+          </a>
+        </li>
+      </ul>
+    </article>
+  </section>
+</Base>
