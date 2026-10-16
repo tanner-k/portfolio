@@ -12,7 +12,7 @@ const { href, title, tagline, year, status, stack } = Astro.props;
 
 <a
   href={href}
-  class="group relative block rounded-xl border border-line bg-surface p-7 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_12px_40px_-18px_rgb(var(--glow)/0.45)]"
+  class="group relative block rounded-xl border border-line bg-surface p-7 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_12px_40px_-18px_rgb(from_var(--glow)_r_g_b/0.45)]"
 >
   <div class="flex items-baseline justify-between gap-4">
     <h3 class="font-display text-2xl">{title}</h3>

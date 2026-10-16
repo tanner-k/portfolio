@@ -11,7 +11,7 @@
    ink / ink-muted / line      text and structure
    primary / primary-soft      lead colour + its tint for panels and tags
    secondary / secondary-soft  supporting colour + its tint
-   glow                        primary as an RGB triplet for the cursor effect
+   glow                        primary colour for the cursor effect
    ---- */
 :root {
   color-scheme: light dark;
@@ -27,7 +27,7 @@
   --primary-soft:   light-dark(#efe0d0, #32241a);
   --secondary:      light-dark(#5b6733, #b0bf74);
   --secondary-soft: light-dark(#e7ead6, #262b1a);
-  --glow:           light-dark(122 74 43, 224 156 106);
+  --glow:           light-dark(#7a4a2b, #e09c6a);
 
   /* Cabinet Grotesk for display, Archivo for body. The weight, tracking and
      leading below are tuned to Cabinet specifically — changing the face
@@ -129,7 +129,7 @@ html[data-mode='dark']  { color-scheme: dark; }
   pointer-events: none;
   background: radial-gradient(
     30rem 30rem at var(--mx, 50%) var(--my, 30%),
-    rgb(var(--glow) / 0.13),
+    rgb(from var(--glow) r g b / 0.13),
     transparent 70%
   );
   opacity: 0;
