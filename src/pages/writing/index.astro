@@ -24,7 +24,7 @@ const formatDate = (date: Date) =>
         <ul class="mt-14 border-t border-line">
           {posts.map((post) => (
             <li class="reveal border-b border-line">
-              <a href={`/writing/${post.id}`} class="group block py-8">
+              <a href={`/portfolio/writing/${post.id}`} class="group block py-8">
                 <time datetime={post.data.date.toISOString()} class="text-[0.8rem] text-ink-muted tabular-nums">
                   {formatDate(post.data.date)}
                 </time>

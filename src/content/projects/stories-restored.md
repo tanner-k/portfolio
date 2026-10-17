@@ -22,8 +22,8 @@ The current site offers two restoration paths: individual photographs and whole 
 The screenshots below were captured from the live website in October 2026. Select an image to view it at full size.
 
 <figure>
-  <a href="/images/projects/stories-restored/homepage.jpg" aria-label="View the Stories Restored homepage screenshot at full size">
-    <img src="/images/projects/stories-restored/homepage.jpg" alt="Stories Restored homepage with before-and-after family photographs and entry points for photo and album-page restoration." width="1440" height="1000" decoding="async" class="rounded-xl border border-line" />
+  <a href="/portfolio/images/projects/stories-restored/homepage.jpg" aria-label="View the Stories Restored homepage screenshot at full size">
+    <img src="/portfolio/images/projects/stories-restored/homepage.jpg" alt="Stories Restored homepage with before-and-after family photographs and entry points for photo and album-page restoration." width="1440" height="1000" decoding="async" class="rounded-xl border border-line" />
   </a>
   <figcaption class="mt-3 text-sm text-ink-muted">The updated homepage pairs restoration examples with two clear paths: loose photos or whole album pages.</figcaption>
 </figure>
@@ -35,8 +35,8 @@ Photos do not always arrive as individual files. The album workflow accepts whol
 Album orders use a flat price per page, covering up to ten detected photos. The site explains the limits upfront: there is no crop preview before payment, and a page with no detected photographs is restored whole.
 
 <figure>
-  <a href="/images/projects/stories-restored/album-pages.jpg" aria-label="View the album-page restoration screenshot at full size">
-    <img src="/images/projects/stories-restored/album-pages.jpg" alt="A scanned album page containing six black-and-white snapshots beside the six separate restored color photographs." width="1440" height="1000" loading="lazy" decoding="async" class="rounded-xl border border-line" />
+  <a href="/portfolio/images/projects/stories-restored/album-pages.jpg" aria-label="View the album-page restoration screenshot at full size">
+    <img src="/portfolio/images/projects/stories-restored/album-pages.jpg" alt="A scanned album page containing six black-and-white snapshots beside the six separate restored color photographs." width="1440" height="1000" loading="lazy" decoding="async" class="rounded-xl border border-line" />
   </a>
   <figcaption class="mt-3 text-sm text-ink-muted">One page in, separate photos out: the live example makes the album workflow tangible before upload.</figcaption>
 </figure>
@@ -48,8 +48,8 @@ The photo order form offers Enhance for damage repair, Full Restore for repair a
 The form keeps email delivery, restoration choices, upload requirements, and the order summary together. Checkout uses Lemon Squeezy.
 
 <figure>
-  <a href="/images/projects/stories-restored/order.jpg" aria-label="View the photo restoration order screenshot at full size">
-    <img src="/images/projects/stories-restored/order.jpg" alt="Photo restoration order form with email delivery, Enhance, Full Restore and Premium choices, file upload, and an order summary." width="1440" height="1200" loading="lazy" decoding="async" class="rounded-xl border border-line" />
+  <a href="/portfolio/images/projects/stories-restored/order.jpg" aria-label="View the photo restoration order screenshot at full size">
+    <img src="/portfolio/images/projects/stories-restored/order.jpg" alt="Photo restoration order form with email delivery, Enhance, Full Restore and Premium choices, file upload, and an order summary." width="1440" height="1200" loading="lazy" decoding="async" class="rounded-xl border border-line" />
   </a>
   <figcaption class="mt-3 text-sm text-ink-muted">Restoration levels and pricing sit alongside the order summary, with file requirements shown at the upload step.</figcaption>
 </figure>

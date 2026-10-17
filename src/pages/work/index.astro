@@ -19,7 +19,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
         projects.map((project) => (
           <div class="reveal">
             <ProjectCard
-              href={`/work/${project.id}`}
+              href={`/portfolio/work/${project.id}`}
               title={project.data.title}
               tagline={project.data.tagline}
               year={project.data.year}

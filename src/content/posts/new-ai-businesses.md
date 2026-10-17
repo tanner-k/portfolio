@@ -5,7 +5,7 @@ date: 2026-10-16
 draft: false
 ---
 
-*Working paper, October 2026 · Tanner Kunz · [PDF](/papers/new-ai-businesses/new-ai-businesses.pdf) · [Code and data](https://github.com/tanner-k/new-ai-businesses-research)*
+*Working paper, October 2026 · Tanner Kunz · [PDF](/portfolio/papers/new-ai-businesses/new-ai-businesses.pdf) · [Code and data](https://github.com/tanner-k/new-ai-businesses-research)*
 
 ## Abstract
 
@@ -64,7 +64,7 @@ On AI, early-career workers in AI-exposed jobs have seen employment fall since l
 The paper uses eight sources. Figure 1 shows which analyses each one feeds. All series are monthly and run through September 2026.
 
 <figure>
-<img src="/papers/new-ai-businesses/data_map.png" alt="Diagram mapping each data source to the analyses that use it" width="1500" height="1300" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/data_map.png" alt="Diagram mapping each data source to the analyses that use it" width="1500" height="1300" loading="lazy">
 <figcaption>Figure 1. Data sources (left) and the analyses that use them (right). Line colors follow the data source; heavier boxes are main-text results. Dashed lines: the claims data also supply the covered-jobs count used to scale WARN layoffs. The AI-era date from Google Trends sets the January 2026 start for every before/after comparison.</figcaption>
 </figure>
 
@@ -167,14 +167,14 @@ Several checks were not in the plan. A test for effects that appear *before* the
 **Applications rose; layoffs did not surge.** In the 34 states, WARN notices in January–September 2026 named 16,000–33,000 workers a month, inside the range seen in 2025 (Figure 2). Seasonally adjusted applications in 2026 were 8–26% above their 2023 average, and most of that rise came in the second half of 2025, before the AI era began. High-propensity applications, the ones likely to hire, ran a few percent *below* their 2023 level.
 
 <figure>
-<img src="/papers/new-ai-businesses/national_trends.png" alt="Line charts of monthly WARN layoffs and national business applications, 2023 to 2026" width="1386" height="946" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/national_trends.png" alt="Line charts of monthly WARN layoffs and national business applications, 2023 to 2026" width="1386" height="946" loading="lazy">
 <figcaption>Figure 2. WARN layoffs (34 states) and national business applications, January 2023 – September 2026. Shaded: AI era.</figcaption>
 </figure>
 
 **More companies say AI is a reason for cuts.** Among SEC restructuring filings, the share citing AI went from under 1% in 2019–2023 to 2.1% in 2024, 3.9% in 2025 and 17.0% in January–September 2026 (26 of 153 filings; Figure 3). Among large filings, 14 of 62 cited AI in 2026. Direct substitution, where AI takes over the work, appears in 8 of the 153 filings.
 
 <figure>
-<img src="/papers/new-ai-businesses/ai_reason_share.png" alt="Bar chart of the share of SEC restructuring filings that cite AI, by year" width="926" height="582" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/ai_reason_share.png" alt="Bar chart of the share of SEC restructuring filings that cite AI, by year" width="926" height="582" loading="lazy">
 <figcaption>Figure 3. Share of SEC Item 2.05 restructuring filings (originals) that give AI as a reason for the cut, by year, using audited labels. Labels: AI-cited / all filings.</figcaption>
 </figure>
 
@@ -189,7 +189,7 @@ In the AI era, the sign depends on what the model holds fixed (Figure 4, Table 1
 - **With a June 2025 start**, at the broad AI-tools wave, the pattern is the same: negative with state effects, near zero with state-by-era effects.
 
 <figure>
-<img src="/papers/new-ai-businesses/main_sensitivity.png" alt="Estimated AI-era change in the layoff-applications link under different model setups, with 95% intervals" width="1386" height="659" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/main_sensitivity.png" alt="Estimated AI-era change in the layoff-applications link under different model setups, with 95% intervals" width="1386" height="659" loading="lazy">
 <figcaption>Figure 4. How much the link between WARN layoffs and log business applications changed in the AI era, summed over lags 0–6. Blue: pre-registered model. Orange: with state-by-era fixed effects (post hoc). Bands are 95% confidence intervals. 34 states, January 2023 – September 2026.</figcaption>
 </figure>
 
@@ -234,7 +234,7 @@ To compare like with like, I use the first four months after filing for plans th
 These comparisons rest on five to seven home states, mostly California, and a company's home state is not where its laid-off workers live. They show neither a rise nor a fall that we can attribute to AI-cited layoffs (Figure 5). The audit corrections swap Etsy out and Rapid7 in, which leaves these results unchanged.
 
 <figure>
-<img src="/papers/new-ai-businesses/sec_event_study.png" alt="Home-state business applications around large restructuring plans, AI-cited versus other" width="1265" height="628" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/sec_event_study.png" alt="Home-state business applications around large restructuring plans, AI-cited versus other" width="1265" height="628" loading="lazy">
 <figcaption>Figure 5. Business applications in a company’s home state around large restructuring plans (1,000+ workers or 10%+ of staff), as a log share of national applications (SA), relative to the month before filing. Orange: filings that cite AI. Months with fewer than five plans are not drawn.</figcaption>
 </figure>
 
@@ -300,27 +300,27 @@ What it does *not* support is the conclusion that AI fails to help laid-off work
 ## Appendix A. Additional figures
 
 <figure>
-<img src="/papers/new-ai-businesses/main_cumulative.png" alt="Pre-registered model: layoff-applications link before the AI era and its change in the AI era" width="1386" height="654" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/main_cumulative.png" alt="Pre-registered model: layoff-applications link before the AI era and its change in the AI era" width="1386" height="654" loading="lazy">
 <figcaption>Figure A1. Pre-registered model: the link between WARN layoffs and log applications before the AI era (Σβ, blue) and its change in the AI era (Σδ, orange), summed over lags 0–6.</figcaption>
 </figure>
 
 <figure>
-<img src="/papers/new-ai-businesses/claims_cumulative.png" alt="The same estimates using unemployment claims instead of WARN notices" width="1386" height="654" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/claims_cumulative.png" alt="The same estimates using unemployment claims instead of WARN notices" width="1386" height="654" loading="lazy">
 <figcaption>Figure A2. Pre-registered claims model: the same, using initial unemployment claims per 1,000 covered workers. 51 states, 2005 – September 2026, excluding March 2020 – June 2021.</figcaption>
 </figure>
 
 <figure>
-<img src="/papers/new-ai-businesses/sector_shares.png" alt="Industry shares of business applications, 2019 to 2026" width="1385" height="636" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/sector_shares.png" alt="Industry shares of business applications, 2019 to 2026" width="1385" height="636" loading="lazy">
 <figcaption>Figure A3. Industry shares of business applications (SA), 2019 – September 2026. Shaded: AI era.</figcaption>
 </figure>
 
 <figure>
-<img src="/papers/new-ai-businesses/haven_share.png" alt="Share of national business applications filed in business-friendly states and New Jersey" width="1281" height="553" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/haven_share.png" alt="Share of national business applications filed in business-friendly states and New Jersey" width="1281" height="553" loading="lazy">
 <figcaption>Figure A4. Share of national business applications (SA) filed in business-friendly states (DE, WY, NV, SD) and in New Jersey, 2019 – September 2026. Shaded: AI era.</figcaption>
 </figure>
 
 <figure>
-<img src="/papers/new-ai-businesses/ai_adoption_terms.png" alt="Weekly Google search interest in 12 AI terms with detected jumps and a combined index" width="2423" height="1803" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/ai_adoption_terms.png" alt="Weekly Google search interest in 12 AI terms with detected jumps and a combined index" width="2423" height="1803" loading="lazy">
 <figcaption>Figure A5. Weekly US Google search interest in 12 AI terms, each on its own 0–100 scale, with detected jumps (dotted lines), and a combined index (bottom). Shaded: the pre-registered AI era. Post hoc.</figcaption>
 </figure>
 
@@ -335,7 +335,7 @@ A laid-off remote worker can start a business anywhere, and founders sometimes r
 - The change in that gap between periods is −0.3 (1.8) log points.
 
 <figure>
-<img src="/papers/new-ai-businesses/national_event.png" alt="National business applications around large restructuring plans, AI-cited versus other" width="1265" height="616" loading="lazy">
+<img src="/portfolio/papers/new-ai-businesses/national_event.png" alt="National business applications around large restructuring plans, AI-cited versus other" width="1265" height="616" loading="lazy">
 <figcaption>Figure B1. National business applications (SA, log) around large restructuring plans, relative to the month before filing. Orange: filings that cite AI. 95% bands, clustered by filing month. Months with fewer than five plans are not drawn.</figcaption>
 </figure>
 
