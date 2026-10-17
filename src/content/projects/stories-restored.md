@@ -1,11 +1,11 @@
 ---
 title: "Stories Restored"
 tagline: "AI photo restoration for families with a shoebox of damaged photos."
-summary: "A production web app that restores old and damaged family photographs. Two paths: a free guide for people who want to do one photo themselves, and paid bulk processing for people with an album."
+summary: "A production web app that restores old family photographs and separates scanned album pages into individual restored images, with clear restoration levels and delivery by email."
 year: "2026"
 role: "Solo — product, design, engineering, deployment"
 status: "Live in production"
-stack: ["Next.js 15", "TypeScript", "Supabase", "Google Gemini", "Stripe", "Vercel", "Sentry"]
+stack: ["Next.js 15", "TypeScript", "Supabase", "Google Gemini", "OpenAI", "Lemon Squeezy", "Vercel", "Sentry"]
 liveUrl: "https://storiesrestored.com"
 featured: true
 order: 1
@@ -17,12 +17,42 @@ Most people have a box of photographs that are fading, creased, or water damaged
 
 ## What I built
 
-Two entry points, aimed at two different levels of willingness to do work:
+The current site offers two restoration paths: individual photographs and whole album or scrapbook pages. Customers choose a restoration level, upload their files, and receive the restored images by email. A free DIY guide remains available for people who want to restore a photo themselves.
 
-- **A free DIY guide** that walks you through restoring a single photo yourself using a free AI chat interface. No account, no payment. It is genuinely useful on its own.
-- **Bulk processing** for people who have an album rather than a photo. Upload, pay a per-photo price, receive the restored images by email.
+The screenshots below were captured from the live website in October 2026. Select an image to view it at full size.
 
-Pricing is a flat fee plus a tiered per-photo cost. No subscription and no credit packs — both of which punish exactly the person who wants to restore thirty photos once and never return.
+<figure>
+  <a href="/images/projects/stories-restored/homepage.jpg" aria-label="View the Stories Restored homepage screenshot at full size">
+    <img src="/images/projects/stories-restored/homepage.jpg" alt="Stories Restored homepage with before-and-after family photographs and entry points for photo and album-page restoration." width="1440" height="1000" decoding="async" class="rounded-xl border border-line" />
+  </a>
+  <figcaption class="mt-3 text-sm text-ink-muted">The updated homepage pairs restoration examples with two clear paths: loose photos or whole album pages.</figcaption>
+</figure>
+
+## From an album page to separate photographs
+
+Photos do not always arrive as individual files. The album workflow accepts whole-page scans, including scanner PDFs, detects the photographs on each page, and crops and restores them separately. The customer receives individual images rather than a restored picture of the album page.
+
+Album orders use a flat price per page, covering up to ten detected photos. The site explains the limits upfront: there is no crop preview before payment, and a page with no detected photographs is restored whole.
+
+<figure>
+  <a href="/images/projects/stories-restored/album-pages.jpg" aria-label="View the album-page restoration screenshot at full size">
+    <img src="/images/projects/stories-restored/album-pages.jpg" alt="A scanned album page containing six black-and-white snapshots beside the six separate restored color photographs." width="1440" height="1000" loading="lazy" decoding="async" class="rounded-xl border border-line" />
+  </a>
+  <figcaption class="mt-3 text-sm text-ink-muted">One page in, separate photos out: the live example makes the album workflow tangible before upload.</figcaption>
+</figure>
+
+## Choosing the right restoration level
+
+The photo order form offers Enhance for damage repair, Full Restore for repair and colorization, and Premium for more complex scenes. Per-photo prices decrease with larger orders. There are no additional fees or subscriptions, and the order summary shows the selected mode and price before payment.
+
+The form keeps email delivery, restoration choices, upload requirements, and the order summary together. Checkout uses Lemon Squeezy.
+
+<figure>
+  <a href="/images/projects/stories-restored/order.jpg" aria-label="View the photo restoration order screenshot at full size">
+    <img src="/images/projects/stories-restored/order.jpg" alt="Photo restoration order form with email delivery, Enhance, Full Restore and Premium choices, file upload, and an order summary." width="1440" height="1200" loading="lazy" decoding="async" class="rounded-xl border border-line" />
+  </a>
+  <figcaption class="mt-3 text-sm text-ink-muted">Restoration levels and pricing sit alongside the order summary, with file requirements shown at the upload step.</figcaption>
+</figure>
 
 ## Engineering decisions worth naming
 
