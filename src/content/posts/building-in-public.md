@@ -2,6 +2,7 @@
 title: "Why I'm building in public"
 description: "A short note on what I'm working on right now, and why this site exists."
 date: 2026-09-16
+draft: true
 ---
 
 <!-- TODO: rewrite this in your own voice. It's a placeholder with the right

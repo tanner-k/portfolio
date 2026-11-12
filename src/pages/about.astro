@@ -4,21 +4,32 @@ import Base from '../layouts/Base.astro';
 
 <Base
   title="About"
-  description="Background, how I work, and what I'm building toward."
+  description="Background, how I work, and the role I'm looking for."
 >
   <section class="wrap py-20">
     <h1 class="text-[clamp(2.25rem,5vw,3.5rem)]">About</h1>
 
-    {/* TODO: everything below is placeholder shaped correctly. Rewrite in your voice. */}
     <div class="prose-measure mt-10 space-y-6 text-lg text-ink-muted">
       <p>
-        I&rsquo;m an engineer who builds and ships products end to end — the research, the
-        architecture, the interface, and the part where it goes live and has to stay up.
+        I&rsquo;m a data scientist turned AI engineer in Salt Lake City. From 2022 to early 2026 I
+        worked at Strider Technologies, building the pipelines that matched hundreds of millions of
+        company records across business registries, trade data and multilingual sources.
       </p>
       <p>
-        Lately most of my work has been AI-powered products: systems where a model does something
-        genuinely useful inside a product that a non-technical person can actually operate. That
-        second half is where most of these projects fail, and it&rsquo;s the half I care about.
+        The work I&rsquo;m proudest of came with a number attached. Sending the uncertain matches
+        to a language model for review lifted recall from 71% to 83% and precision from 86% to
+        90%. A retrieval model I built to match technical expertise to people reached 97.5% recall
+        in its top 20 results. I also built the bias tests an AI resume-screening model had to
+        pass before wider use.
+      </p>
+      <p>
+        I studied economics at Brigham Young University, and it is still how I approach a problem:
+        what decision is being made, who is making it, and what would change their mind.
+      </p>
+      <p>
+        Since then I have been building on my own: a live photo restoration product, a cooking app
+        my wife and I use every week, a research paper on layoffs and new business formation, and
+        a case study on who should own a precision-farming machine.
       </p>
     </div>
 
@@ -26,29 +37,39 @@ import Base from '../layouts/Base.astro';
       <h2 class="font-display text-[clamp(1.5rem,3vw,2rem)]">How I work</h2>
       <div class="space-y-5 text-ink-muted">
         <p>
-          <strong class="text-ink">Ship the smallest real version first.</strong> Most projects that
+          <strong class="text-ink">Start from the customer&rsquo;s decision.</strong> The useful
+          question is rarely &ldquo;can a model do this?&rdquo; It is what someone is trying to
+          decide, and what evidence would settle it.
+        </p>
+        <p>
+          <strong class="text-ink">Set the test first, then report what it says.</strong> I fix
+          how a result will be judged before I run it. If the answer goes against my idea, that
+          goes in the write-up too.
+        </p>
+        <p>
+          <strong class="text-ink">Ship the smallest real version.</strong> Most projects that
           sound like they need a large system need a smaller one in front of users sooner. Real
           usage answers questions that planning cannot.
         </p>
         <p>
-          <strong class="text-ink">Own the whole thing.</strong> Fewer handoffs, fewer things lost
-          between them. I&rsquo;d rather be responsible for the outcome than for one layer of it.
-        </p>
-        <p>
-          <strong class="text-ink">Build for the person who isn&rsquo;t technical.</strong> If the
-          person who needs the tool can&rsquo;t run it without me, it isn&rsquo;t finished.
+          <strong class="text-ink">Let agents type; keep the judgement.</strong> I build with AI
+          coding agents every day. They are fast at writing code and poor at knowing whether it
+          answers the right question, so that part stays with me.
         </p>
       </div>
     </div>
 
     <div class="reveal mt-20 grid gap-12 border-t border-line pt-14 md:grid-cols-[1fr_1.4fr]">
-      <h2 class="font-display text-[clamp(1.5rem,3vw,2rem)]">What I&rsquo;m building toward</h2>
+      <h2 class="font-display text-[clamp(1.5rem,3vw,2rem)]">What I&rsquo;m looking for</h2>
       <div class="space-y-5 text-ink-muted">
         <p>
-          {/* TODO: this is the most personal section on the site. Worth writing yourself. */}
-          I&rsquo;m building my own products and taking on a small number of client projects
-          alongside them. The goal is a small portfolio of things I own outright, funded by work
-          I&rsquo;m glad to do.
+          I&rsquo;m looking for a forward-deployed or AI engineering role. I do my best work close
+          to the person with the problem, while the question is still fuzzy and someone has to
+          work out what is worth building.
+        </p>
+        <p>
+          I would like to do that on a team that cares whether the thing still works after the
+          demo.
         </p>
         <a href="mailto:tanner.kunz22@gmail.com" class="link-wipe inline-block text-primary">
           Get in touch

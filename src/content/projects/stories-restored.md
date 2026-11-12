@@ -66,16 +66,7 @@ The form keeps email delivery, restoration choices, upload requirements, and the
 
 **Observability from the start.** Sentry across client, server, and edge. A silent failure on someone's only photo of their grandmother is not an acceptable failure mode.
 
-## Outcome
-
-<!-- TODO: replace with real numbers once you pull them.
-     Photos restored, conversion rate, revenue, cost per photo,
-     or a customer quote. One concrete number beats three paragraphs. -->
-
-*Metrics in progress — this section gets the real numbers before the site goes live.*
-
-## What I would do differently
-
-<!-- TODO: your call. Two or three sentences, honest.
+<!-- TODO: add a "What I would do differently" section. Your call.
+     Two or three sentences, honest.
      Hiring managers and clients both read this section first, because it is
      the only one that is hard to fake. -->
