@@ -40,8 +40,10 @@ points.forEach((p, i) => {
 });
 // Band: only where low and high differ.
 const banded = points.map((p, i) => ({ ...p, i })).filter((p) => p.low != null && p.high != null && p.high > p.low);
-const band = banded.length
-  ? [...banded.map((p) => `${xAt(p.i)},${yAt(p.high!)}`), ...banded.reverse().map((p) => `${xAt(p.i)},${yAt(p.low!)}`)].join(' ')
+// Two or more banded points get a shaded area; every banded point also gets a low-high tick,
+// so the first Jev quarter shows its range before there is an area to shade.
+const band = banded.length > 1
+  ? [...banded.map((p) => `${xAt(p.i)},${yAt(p.high!)}`), ...[...banded].reverse().map((p) => `${xAt(p.i)},${yAt(p.low!)}`)].join(' ')
   : '';
 const ticks = Array.from({ length: Math.round(yMax / step) + 1 }, (_, k) => k * step);
 const years = points
@@ -66,6 +68,9 @@ const summary = `${title}. Latest, ${last?.x}: ${last ? fmt(last.y!) : 'no data'
       <text x={xAt(p.i)} y={H - 8} class:list={['label', k % 2 ? 'odd' : '']} text-anchor="start">{p.year}</text>
     ))}
     {band && <polygon points={band} class="band" />}
+    {banded.map((p) => (
+      <line x1={xAt(p.i)} x2={xAt(p.i)} y1={yAt(p.high!)} y2={yAt(p.low!)} class="band-tick" />
+    ))}
     <path d={line} class="series" />
     {sw >= 0 && (
       <g>
@@ -84,6 +89,7 @@ const summary = `${title}. Latest, ${last?.x}: ${last ? fmt(last.y!) : 'no data'
   .label { fill: var(--ink-muted); font-size: 15px; font-family: var(--body-family); }
   .series { fill: none; stroke: var(--primary); stroke-width: 2.5; stroke-linejoin: round; }
   .band { fill: var(--primary-soft); stroke: none; }
+  .band-tick { stroke: var(--primary); stroke-width: 7; stroke-linecap: round; opacity: 0.35; }
   .switch { stroke: var(--secondary); stroke-width: 1.5; stroke-dasharray: 4 4; }
   .switch-label { fill: var(--secondary); }
   @media (max-width: 520px) {

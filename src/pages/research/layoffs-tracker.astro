@@ -93,7 +93,7 @@ const missing = t.warn_monthly.reduce((s, m) => s + m.notices_missing_workers, 0
         points={secPoints}
         switchAt={t.method_switch}
         format="int"
-        caption="Original filings only; amendments are left out."
+        caption="Original filings only; amendments are left out. The latest months can still rise as late filings are indexed."
       />
 
       <TrackerChart
@@ -101,7 +101,7 @@ const missing = t.warn_monthly.reduce((s, m) => s + m.notices_missing_workers, 0
         points={warnPoints}
         switchAt={t.method_switch}
         format="int"
-        caption={`${t.sources.warn_states.length} states with notices every year since 2019. Workers sums known counts; ${pct(missing / notices)} of notices since 2019 gave no count.`}
+        caption={`${t.sources.warn_states.length} states with notices every year since 2019. Workers sums known counts; ${pct(missing / notices)} of notices since 2019 gave no count. Recent months fill in as states post notices late.`}
       />
 
       <div class="prose-measure space-y-4 text-[0.95rem] text-ink-muted">
