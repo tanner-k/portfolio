@@ -52,5 +52,26 @@ import Base from '../layouts/Base.astro';
         </li>
       </ul>
     </article>
+
+    <article class="reveal mt-16 border-t border-line pt-10" aria-labelledby="layoffs-tracker">
+      <p class="font-display text-[0.8rem] tracking-[0.12em] text-primary uppercase">
+        Tracker &middot; updated monthly
+      </p>
+      <h2 id="layoffs-tracker" class="mt-4 max-w-3xl font-display text-[clamp(1.5rem,3vw,2rem)]">
+        <a href="/portfolio/research/layoffs-tracker" class="link-wipe">AI Layoffs Tracker</a>
+      </h2>
+      <p class="prose-measure mt-6 text-ink-muted">
+        The paper&rsquo;s AI share of layoff filings, kept current. A monthly Airflow pipeline on
+        Kubernetes labels new SEC filings and refreshes the WARN series.
+      </p>
+      <ul class="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-[0.95rem]">
+        <li><a href="/portfolio/research/layoffs-tracker" class="link-wipe text-ink">See the tracker &rarr;</a></li>
+        <li>
+          <a href="https://github.com/tanner-k/layoffs-tracker" class="link-wipe text-ink-muted hover:text-ink">
+            Pipeline code
+          </a>
+        </li>
+      </ul>
+    </article>
   </section>
 </Base>

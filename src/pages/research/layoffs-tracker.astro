@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro';
+import TrackerChart from '../../components/TrackerChart.astro';
+import { TRACKER_REPO, daysSince, loadTracker, monthName, pct, quarterOf } from '../../lib/tracker';
+
+const STALE_DAYS = 45;
+const t = await loadTracker();
+const switchQ = quarterOf(t.method_switch);
+const throughName = monthName(t.data_through);
+const updated = new Date(t.generated_at).toLocaleDateString('en-US', {
+  month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+});
+const stale = daysSince(t.data_through, new Date()) > STALE_DAYS;
+
+// Headline: the latest quarter with filings.
+const latest = [...t.ai_quarterly].reverse().find((q) => q.total > 0)!;
+const [qYear, qNum] = latest.quarter.split('Q');
+const complete = latest.quarter !== quarterOf(t.data_through) || Number(t.data_through.slice(5)) % 3 === 0;
+const qLabel = complete ? `Q${qNum} ${qYear}` : `Q${qNum} ${qYear} so far (through ${throughName})`;
+const banded = latest.method === 'jev' && latest.share_high !== latest.share_low;
+const headline = banded
+  ? `${pct(latest.share_low)}, up to ${pct(latest.share_high)} if every unresolved filing cites AI`
+  : pct(latest.share_low);
+const paper2026 = t.ai_yearly.find((y) => y.year === 2026 && y.method === 'paper_audited');
+
+const aiPoints = t.ai_quarterly.map((q) => ({
+  x: q.quarter,
+  y: q.total ? q.share_low : null,
+  low: q.method === 'jev' ? q.share_low : null,
+  high: q.method === 'jev' ? q.share_high : null,
+}));
+const secPoints = t.sec_monthly.map((m) => ({ x: m.month, y: m.filings }));
+const warnPoints = t.warn_monthly.map((m) => ({ x: m.month, y: m.workers }));
+const notices = t.warn_monthly.reduce((s, m) => s + m.notices, 0);
+const missing = t.warn_monthly.reduce((s, m) => s + m.notices_missing_workers, 0);
+---
+
+<Base
+  title="AI Layoffs Tracker"
+  description="How often US companies cite AI when they announce layoffs, updated monthly from SEC filings and WARN notices."
+>
+  <section class="cursor-glow relative overflow-hidden">
+    <div class="wrap relative pt-20 pb-12">
+      <p class="font-display text-[0.8rem] tracking-[0.12em] text-primary uppercase">
+        Tracker &middot; updated monthly
+      </p>
+      <h1 class="mt-4 text-[clamp(2.25rem,5vw,3.5rem)]">AI Layoffs Tracker</h1>
+      <p class="prose-measure mt-5 text-lg text-ink-muted">
+        <span class="text-ink">{headline}</span> of SEC layoff filings in {qLabel} cited AI as a
+        reason.
+      </p>
+      <p class="mt-4 text-[0.95rem] text-ink-muted">
+        Data through {throughName}, updated {updated}.
+      </p>
+      {stale && (
+        <p class="prose-measure mt-3 rounded-md bg-primary-soft px-4 py-3 text-[0.95rem] text-ink">
+          This page has not had new data in over {STALE_DAYS} days; the monthly run may have
+          failed. The numbers below are still correct through {throughName}.
+        </p>
+      )}
+    </div>
+  </section>
+
+  <section class="wrap pb-20">
+    <div class="max-w-3xl space-y-14 border-t border-line pt-10">
+      <div>
+        <TrackerChart
+          title="Share of SEC layoff filings that cite AI, by quarter"
+          points={aiPoints}
+          switchAt={switchQ}
+          format="pct"
+        />
+        <p class="prose-measure mt-4 text-[0.95rem] text-ink-muted">
+          Through September 2026 these are the paper&rsquo;s audited labels
+          ({paper2026 ? pct(paper2026.share_low) : '17%'} of 2026 filings). From October, Jev labels
+          new filings alone; on the paper&rsquo;s own filings Jev alone found fewer AI-cited
+          filings, so compare against the top of the band.
+        </p>
+      </div>
+
+      <TrackerChart
+        title="SEC 8-K Item 2.05 layoff filings, by month"
+        points={secPoints}
+        switchAt={t.method_switch}
+        format="int"
+        caption="Original filings only; amendments are left out."
+      />
+
+      <TrackerChart
+        title="Workers in WARN layoff notices, by month"
+        points={warnPoints}
+        switchAt={t.method_switch}
+        format="int"
+        caption={`${t.sources.warn_states.length} states with notices every year since 2019. Workers sums known counts; ${pct(missing / notices)} of notices since 2019 gave no count.`}
+      />
+
+      <div class="prose-measure space-y-4 text-[0.95rem] text-ink-muted">
+        <p>
+          Filings come from EDGAR full-text search for 8-K Item 2.05 (exit or disposal costs); each
+          month&rsquo;s run rescans the last three months for late filings. WARN notices come from
+          Kadoa&rsquo;s open layoffs tracker. An Airflow job on Kubernetes runs on the 3rd of each
+          month and publishes the numbers.
+        </p>
+        <ul class="flex flex-wrap gap-x-7 gap-y-3">
+          <li><a href="/portfolio/writing/new-ai-businesses" class="link-wipe text-ink">Read the paper &rarr;</a></li>
+          <li><a href={TRACKER_REPO} class="link-wipe text-ink-muted hover:text-ink">Pipeline code and data</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>

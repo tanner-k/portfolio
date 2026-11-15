@@ -1,0 +1,93 @@
+---
+// A static line chart drawn at build time: one series, an optional low/high band, and a
+// vertical rule where the label method switches. Colours come from the site's tokens.
+interface Point {
+  x: string; // label: "2026Q4" or "2026-10"
+  y: number | null;
+  low?: number | null;
+  high?: number | null;
+}
+interface Props {
+  title: string;
+  points: Point[];
+  switchAt: string; // an x label
+  format: 'pct' | 'int';
+  caption?: string;
+}
+
+const { title, points, switchAt, format, caption } = Astro.props;
+const W = 600, H = 250, L = 58, R = 12, T = 30, B = 30;
+const values = points.flatMap((p) => [p.y, p.high ?? null]).filter((v): v is number => v !== null);
+const rawMax = Math.max(...values, format === 'pct' ? 0.05 : 1);
+const step = niceStep(rawMax / 4);
+const yMax = Math.ceil((rawMax * 1.04) / step) * step; // headroom above the peak
+const n = points.length;
+const xAt = (i: number) => L + (n === 1 ? 0 : (i * (W - L - R)) / (n - 1));
+const yAt = (v: number) => T + (H - T - B) * (1 - v / yMax);
+const fmt = (v: number) =>
+  format === 'pct' ? `${Math.round(v * 100)}%` : v >= 1000 ? `${Math.round(v / 1000)}k` : `${v}`;
+
+function niceStep(raw: number): number {
+  const p = 10 ** Math.floor(Math.log10(raw));
+  return [1, 2, 2.5, 5, 10].map((m) => m * p).find((s) => s >= raw) ?? 10 * p;
+}
+
+// Line: break at missing values.
+let line = '';
+points.forEach((p, i) => {
+  if (p.y === null) return;
+  line += `${i === 0 || points[i - 1].y === null ? 'M' : 'L'}${xAt(i).toFixed(1)},${yAt(p.y).toFixed(1)} `;
+});
+// Band: only where low and high differ.
+const banded = points.map((p, i) => ({ ...p, i })).filter((p) => p.low != null && p.high != null && p.high > p.low);
+const band = banded.length
+  ? [...banded.map((p) => `${xAt(p.i)},${yAt(p.high!)}`), ...banded.reverse().map((p) => `${xAt(p.i)},${yAt(p.low!)}`)].join(' ')
+  : '';
+const ticks = Array.from({ length: Math.round(yMax / step) + 1 }, (_, k) => k * step);
+const years = points
+  .map((p, i) => ({ year: p.x.slice(0, 4), i }))
+  .filter((p, k, all) => k === 0 || all[k - 1].year !== p.year);
+const sw = points.findIndex((p) => p.x === switchAt);
+const last = [...points].reverse().find((p) => p.y !== null);
+const summary = `${title}. Latest, ${last?.x}: ${last ? fmt(last.y!) : 'no data'}.`;
+---
+
+<figure class="tracker-chart">
+  <figcaption class="font-display text-[1.05rem] text-ink">{title}</figcaption>
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={summary} class="mt-3 w-full h-auto">
+    <title>{summary}</title>
+    {ticks.map((v) => (
+      <g>
+        <line x1={L} x2={W - R} y1={yAt(v)} y2={yAt(v)} class="grid" />
+        <text x={L - 8} y={yAt(v)} class="label" text-anchor="end" dominant-baseline="middle">{fmt(v)}</text>
+      </g>
+    ))}
+    {years.map((p, k) => (
+      <text x={xAt(p.i)} y={H - 8} class:list={['label', k % 2 ? 'odd' : '']} text-anchor="start">{p.year}</text>
+    ))}
+    {band && <polygon points={band} class="band" />}
+    <path d={line} class="series" />
+    {sw >= 0 && (
+      <g>
+        <line x1={xAt(sw)} x2={xAt(sw)} y1={T - 6} y2={H - B} class="switch" />
+        <text x={xAt(sw) - 6} y={T - 12} class="label switch-label" text-anchor="end">
+          Labels: paper&rsquo;s audited method &rarr; Jev only
+        </text>
+      </g>
+    )}
+  </svg>
+  {caption && <p class="mt-2 text-[0.9rem] text-ink-muted">{caption}</p>}
+</figure>
+
+<style>
+  .grid { stroke: var(--line); stroke-width: 1; }
+  .label { fill: var(--ink-muted); font-size: 15px; font-family: var(--body-family); }
+  .series { fill: none; stroke: var(--primary); stroke-width: 2.5; stroke-linejoin: round; }
+  .band { fill: var(--primary-soft); stroke: none; }
+  .switch { stroke: var(--secondary); stroke-width: 1.5; stroke-dasharray: 4 4; }
+  .switch-label { fill: var(--secondary); }
+  @media (max-width: 520px) {
+    .odd { display: none; }
+    .label { font-size: 21px; } /* viewBox units: ~12px on a phone */
+  }
+</style>
