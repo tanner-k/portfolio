@@ -55,11 +55,10 @@ export function quarterOf(ym: string): string {
   return `${y}Q${Math.floor((m - 1) / 3) + 1}`;
 }
 
-/** Days from the end of month `ym` to `now`. */
-export function daysSince(ym: string, now: Date): number {
+/** The moment data through month `ym` counts as stale: `days` after that month ends. */
+export function staleAfter(ym: string, days: number): Date {
   const [y, m] = ym.split('-').map(Number);
-  const monthEnd = Date.UTC(y, m, 0, 23, 59, 59);
-  return Math.floor((now.getTime() - monthEnd) / 86_400_000);
+  return new Date(Date.UTC(y, m, 0, 23, 59, 59) + days * 86_400_000);
 }
 
 export const pct = (x: number | null) => (x === null ? '–' : `${Math.round(x * 100)}%`);

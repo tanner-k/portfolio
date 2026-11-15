@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import TrackerChart from '../../components/TrackerChart.astro';
-import { TRACKER_REPO, daysSince, loadTracker, monthName, pct, quarterOf } from '../../lib/tracker';
+import { TRACKER_REPO, loadTracker, monthName, pct, quarterOf, staleAfter } from '../../lib/tracker';
 
 const STALE_DAYS = 45;
 const t = await loadTracker();
@@ -10,7 +10,10 @@ const throughName = monthName(t.data_through);
 const updated = new Date(t.generated_at).toLocaleDateString('en-US', {
   month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
 });
-const stale = daysSince(t.data_through, new Date()) > STALE_DAYS;
+// Checked at build time and again in the browser: builds stop if the data fetch fails or
+// GitHub pauses the weekly schedule, and the page must still say it is out of date.
+const cutoff = staleAfter(t.data_through, STALE_DAYS);
+const stale = Date.now() > cutoff.getTime();
 
 // Headline: the latest quarter with filings.
 const latest = [...t.ai_quarterly].reverse().find((q) => q.total > 0)!;
@@ -18,9 +21,6 @@ const [qYear, qNum] = latest.quarter.split('Q');
 const complete = latest.quarter !== quarterOf(t.data_through) || Number(t.data_through.slice(5)) % 3 === 0;
 const qLabel = complete ? `Q${qNum} ${qYear}` : `Q${qNum} ${qYear} so far (through ${throughName})`;
 const banded = latest.method === 'jev' && latest.share_high !== latest.share_low;
-const headline = banded
-  ? `${pct(latest.share_low)}, up to ${pct(latest.share_high)} if every unresolved filing cites AI`
-  : pct(latest.share_low);
 const paper2026 = t.ai_yearly.find((y) => y.year === 2026 && y.method === 'paper_audited');
 
 const aiPoints = t.ai_quarterly.map((q) => ({
@@ -46,18 +46,28 @@ const missing = t.warn_monthly.reduce((s, m) => s + m.notices_missing_workers, 0
       </p>
       <h1 class="mt-4 text-[clamp(2.25rem,5vw,3.5rem)]">AI Layoffs Tracker</h1>
       <p class="prose-measure mt-5 text-lg text-ink-muted">
-        <span class="text-ink">{headline}</span> of SEC layoff filings in {qLabel} cited AI as a
-        reason.
+        <span class="text-ink">{pct(latest.share_low)}</span> of SEC layoff filings in {qLabel} cited
+        AI as a reason{banded && <>, up to <span class="text-ink">{pct(latest.share_high)}</span> if
+        every unresolved filing does</>}.
       </p>
       <p class="mt-4 text-[0.95rem] text-ink-muted">
         Data through {throughName}, updated {updated}.
       </p>
-      {stale && (
-        <p class="prose-measure mt-3 rounded-md bg-primary-soft px-4 py-3 text-[0.95rem] text-ink">
-          This page has not had new data in over {STALE_DAYS} days; the monthly run may have
-          failed. The numbers below are still correct through {throughName}.
-        </p>
-      )}
+      <p
+        id="stale-note"
+        hidden={!stale}
+        data-stale-after={cutoff.toISOString()}
+        class="prose-measure mt-3 rounded-md bg-primary-soft px-4 py-3 text-[0.95rem] text-ink"
+      >
+        This page has not had new data in over {STALE_DAYS} days; the monthly run may have
+        failed. The numbers below are still correct through {throughName}.
+      </p>
+      <script is:inline>
+        (() => {
+          const note = document.getElementById('stale-note');
+          if (note && Date.now() > Date.parse(note.dataset.staleAfter)) note.hidden = false;
+        })();
+      </script>
     </div>
   </section>
 
